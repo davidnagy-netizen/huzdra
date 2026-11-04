@@ -41,8 +41,15 @@ export interface Style {
   sortOrder: number;
 }
 
+/** "celebrity": ismert előadó licencelt hangmodellje; "house": a Húzdrá! saját hangja */
+export type ArtistKind = "celebrity" | "house";
+/** "coming_soon": megjelenik az oldalon, de még nem rendelhető (pl. a licenc még nincs aláírva) */
+export type ArtistAvailability = "available" | "coming_soon";
+
 export interface Artist {
   id: string;
+  kind: ArtistKind;
+  availability: ArtistAvailability;
   slug: string;
   name: string;
   tagline: string;
@@ -56,7 +63,8 @@ export interface Artist {
   royaltyPercent: number;
   /** Kell-e előadói/menedzseri jóváhagyás a dalszövegre. */
   requiresApproval: boolean;
-  /** Írásos licencszerződés megléte – enélkül az előadó nem aktiválható. */
+  /** Hírességnél: írásos licencszerződés dátuma – enélkül nem lehet "available".
+   *  Saját hangnál: a hangot adó énekes(ek) hozzájárulási/hangfelhasználási szerződésének dátuma. */
   licenseSignedAt: string | null;
   accentHue: number;
   active: boolean;
@@ -273,6 +281,13 @@ export interface Lead {
   eventDate: string;
   location: string;
   note: string;
+  createdAt: string;
+}
+
+export interface WaitlistEntry {
+  id: string;
+  artistId: string;
+  email: string;
   createdAt: string;
 }
 

@@ -3,13 +3,14 @@ import { getRepo } from "@/lib/db";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Húzdrá! – egyedi dal a hivatalos előadói hangon";
+export const alt = "Húzdrá! – egyedi dal a választott előadó hangján";
 
 export default async function Image(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
   const artist = await getRepo().getArtistBySlug(slug);
   const name = artist?.name ?? "Húzdrá!";
   const hue = artist?.accentHue ?? 12;
+  const badge = !artist ? "Húzdrá!" : artist.availability === "coming_soon" ? "Hamarosan" : artist.kind === "celebrity" ? "Hivatalos hang" : "Húzdrá! hang";
   return new ImageResponse(
     (
       <div
@@ -27,7 +28,7 @@ export default async function Image(props: { params: Promise<{ slug: string }> }
       >
         <div style={{ fontSize: 44, color: "#f0c35e", fontWeight: 800 }}>Húzdrá!</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 30, color: "#f0c35e", fontWeight: 700, textTransform: "uppercase", letterSpacing: 4 }}>Hivatalos hang</div>
+          <div style={{ fontSize: 30, color: "#f0c35e", fontWeight: 700, textTransform: "uppercase", letterSpacing: 4 }}>{badge}</div>
           <div style={{ fontSize: 96, fontWeight: 900, lineHeight: 1.05 }}>{name}</div>
           <div style={{ fontSize: 38, marginTop: 16, color: "#e7d3c4" }}>Saját nótád, az ő hangján – akár pár órán belül.</div>
         </div>

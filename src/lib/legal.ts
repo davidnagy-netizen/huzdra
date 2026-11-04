@@ -11,7 +11,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
     slug: "aszf",
     title: "Általános Szerződési Feltételek",
     sections: [
-      { h: "1. A szolgáltatás", p: ["A Húzdrá! (huzdra.hu) személyre szóló dalokat készít a megrendelő által megadott történet alapján. A dalok mesterséges intelligencia segítségével készülnek, az adott előadó hivatalos, írásos licencszerződéssel engedélyezett hangmodelljével."] },
+      { h: "1. A szolgáltatás", p: ["A Húzdrá! (huzdra.hu) személyre szóló dalokat készít a megrendelő által megadott történet alapján. A dalok mesterséges intelligencia segítségével készülnek: a Húzdrá! saját hangjaival, illetve ismert előadó választása esetén kizárólag az előadó írásos licencszerződéssel engedélyezett hangmodelljével."] },
       { h: "2. Megrendelés és fizetés", p: ["A megrendeléskor a bankkártya rögzítésre / zárolásra kerül. A tényleges terhelés a dal elkészültekor és kézbesítésekor történik. Ha a dal bármely okból nem készíthető el, a zárolást feloldjuk."] },
       { h: "3. Határidők", p: ["A teljesítési határidő a választott csomagtól függ („Még ma”: 1–3 óra, „Holnapra”: 24 óra, „Ráérős”: 5–7 nap). Az előadói jóváhagyás vagy tartalmi felülvizsgálat a határidőt indokolt esetben meghosszabbíthatja, erről értesítést küldünk."] },
       { h: "4. Javítás és garancia", p: ["Minden dalhoz 2 ingyenes javítási kör jár. Ha a megrendelő a javítások után sem elégedett, az elégedettségi garancia keretében a vételárat visszatérítjük."] },
@@ -61,7 +61,8 @@ export const LEGAL_DOCS: LegalDoc[] = [
     slug: "eloadoi-licenc",
     title: "Előadói licenc-tájékoztató",
     sections: [
-      { h: "Csak engedéllyel", p: ["A Húzdrá! kizárólag olyan előadók hangját használja, akikkel írásos licencszerződést kötött. Licencszerződés nélkül előadó nem jelenhet meg és hangmodell nem futtatható."] },
+      { h: "Saját hangok", p: ["A Húzdrá! saját hangjai (pl. Bársony Dani, Rubin Szilvi, Tűzrózsa Duó, Ezüstvonó Zenekar, Neon Gabi) a Húzdrá! saját hangmodelljei. Az ezekhez felhasznált hanganyag kizárólag olyan énekesektől származik, akik ehhez írásban hozzájárultak."] },
+      { h: "Ismert előadók – csak engedéllyel", p: ["Ismert előadó hangja kizárólag írásos licencszerződés alapján használható. Amíg a szerződés nincs aláírva, az előadó legfeljebb „hamarosan” jelöléssel jelenhet meg, és dal nem rendelhető a hangjával."] },
       { h: "Zárt rendszer", p: ["A hangmodellek kizárólag a Húzdrá! rendszerén belül futnak, külső fél számára nem hozzáférhetők, és nem használhatók más célra."] },
       { h: "Vízjel és átláthatóság", p: ["Minden elkészült dal hallhatatlan audio vízjelet és azonosító metaadatot kap, így bármikor visszakövethető. A dal-oldalon és a GYIK-ban egyértelműen jelezzük, hogy a dal mesterséges intelligenciával készült."] },
       { h: "Az előadó kontrollja", p: ["Az előadó vagy menedzsmentje előzetesen jóváhagyhatja vagy elutasíthatja a dalszövegeket, ha azok sértenék az imázsát. Az előadók minden dal után jogdíjat kapnak."] },

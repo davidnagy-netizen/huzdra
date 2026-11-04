@@ -4,7 +4,7 @@ import { ArtistPortrait } from "@/components/ArtistPortrait";
 import { SongActions } from "@/components/order/SongActions";
 import { toPublicArtist } from "@/lib/catalog";
 import { getRepo } from "@/lib/db";
-import { SITE, aiDisclosure } from "@/lib/site";
+import { SITE, aiDisclosure, voiceBadgeLabel } from "@/lib/site";
 
 export const metadata: Metadata = { title: "A te dalod", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
@@ -25,7 +25,7 @@ export default async function SongPage(props: PageProps<"/dal/[token]">) {
           <div className="relative aspect-[16/9]">
             <ArtistPortrait artist={toPublicArtist(artist)} priority monogram={false} />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5 text-white">
-              <p className="text-sm font-semibold text-white/80">{artist.name} · hivatalos hang</p>
+              <p className="text-sm font-semibold text-white/80">{artist.name} · {voiceBadgeLabel(artist.kind)}</p>
               <h1 className="font-display text-3xl font-black sm:text-4xl">{order.lyrics?.title ?? `${order.data.recipientName} dala`}</h1>
             </div>
           </div>
@@ -45,7 +45,7 @@ export default async function SongPage(props: PageProps<"/dal/[token]">) {
               </details>
             )}
             <p className="mt-6 rounded-xl bg-surface-2 p-3 text-xs text-muted">
-              {aiDisclosure(artist.name)} A felvétel azonosító vízjelet tartalmaz. A dal személyes, nem kereskedelmi
+              {aiDisclosure(artist)} A felvétel azonosító vízjelet tartalmaz. A dal személyes, nem kereskedelmi
               felhasználásra szól – lejátszhatod a lagziban, a családi csoportban vagy az autóban, de nem árusítható és nem
               használható reklámban.
             </p>

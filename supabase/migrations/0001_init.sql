@@ -8,22 +8,24 @@ create extension if not exists "pgcrypto";
 
 create table artists (
   id               text primary key default 'art_' || encode(gen_random_bytes(6), 'hex'),
+  kind             text not null default 'house' check (kind in ('celebrity','house')),
+  availability     text not null default 'coming_soon' check (availability in ('available','coming_soon')),
   slug             text unique not null,
   name             text not null,
   tagline          text not null default '',
   bio              text not null default '',
   photos           text[] not null default '{}',
   styles           text[] not null default '{}',
-  voice_model_id   text not null,               -- licencelt hangmodell a szolgáltatónál
-  surcharge_huf    integer not null default 0 check (surcharge_huf >= 0),
+  voice_model_id   text not null default '',    -- hangmodell a szolgáltatónál (hamarosan-előadónál üres)
+  surcharge_huf    integer not null default 0 check (surcharge_huf >= 0), -- előadónkénti felár, adminból állítható
   royalty_percent  numeric(5,2) not null default 0 check (royalty_percent between 0 and 100),
   requires_approval boolean not null default true,
-  license_signed_at date,                       -- írásos licenc nélkül nem aktiválható
+  license_signed_at date,                       -- híresség: licencszerződés; saját hang: énekesi hozzájárulás
   accent_hue       smallint not null default 12,
   active           boolean not null default false,
   sort_order       integer not null default 0,
   created_at       timestamptz not null default now(),
-  constraint active_requires_license check (not active or license_signed_at is not null)
+  constraint available_requires_license check (availability <> 'available' or (license_signed_at is not null and voice_model_id <> ''))
 );
 
 create table occasions (
@@ -144,6 +146,14 @@ create table leads (
   name text not null, email text not null, phone text not null default '',
   event_date date, location text not null default '', note text not null default '',
   created_at timestamptz not null default now()
+);
+
+create table waitlist (
+  id         text primary key,
+  artist_id  text not null references artists(id) on delete cascade,
+  email      text not null,
+  created_at timestamptz not null default now(),
+  unique (artist_id, email)
 );
 
 create table email_outbox (

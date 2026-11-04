@@ -18,8 +18,9 @@ const SEO_LINKS = [
   { href: "/keresztelo-dal", label: "Keresztelői dal" },
   { href: "/nevnapi-dal", label: "Névnapi dal" },
   { href: "/evfordulos-dal", label: "Évfordulós dal" },
-  { href: "/dogos-robi-egyedi-dal", label: "Dögös Robi egyedi dal" },
-  { href: "/bitto-duo-egyedi-dal", label: "Bitto Duó egyedi dal" },
+  { href: "/barsony-dani-egyedi-dal", label: "Bársony Dani egyedi dal" },
+  { href: "/rubin-szilvi-egyedi-dal", label: "Rubin Szilvi egyedi dal" },
+  { href: "/tuzrozsa-duo-egyedi-dal", label: "Tűzrózsa Duó egyedi dal" },
 ];
 
 export function Footer() {
@@ -30,8 +31,8 @@ export function Footer() {
           <Logo />
           <p className="mt-3 max-w-xs text-sm text-muted">{SITE.slogan}</p>
           <p className="mt-4 text-xs text-muted">
-            A dalok mesterséges intelligenciával készülnek az előadók hivatalos, írásos licenccel engedélyezett
-            hangmodelljével. Személyes, nem kereskedelmi felhasználásra.
+            A dalok mesterséges intelligencia segítségével készülnek a Húzdrá! saját hangjaival; ismert előadóknál
+            kizárólag az előadó írásos licenccel engedélyezett hangmodelljével. Személyes, nem kereskedelmi felhasználásra.
           </p>
           <p className="mt-4 text-sm">
             <a className="font-semibold text-gold hover:underline" href={`mailto:${SITE.email}`}>

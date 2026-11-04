@@ -62,7 +62,7 @@ export function HomeView({
       {intro}
 
       <section id="eloadok" aria-labelledby="eloadok-t" className="mx-auto max-w-6xl px-4 py-16">
-        <SectionTitle id="eloadok-t" eyebrow="Hivatalos hangok" title="Ki húzza rá a te nótádat?" sub="Valódi előadók, írásos licenccel engedélyezett hangmodellel. Válaszd ki a kedvencedet!" />
+        <SectionTitle id="eloadok-t" eyebrow="Hangjaink" title="Ki húzza rá a te nótádat?" sub="Öt saját hang, öt stílus – a pörgős lakodalmastól a megható balladáig. Hallgass bele, és válaszd ki a kedvencedet!" />
         <ArtistCards catalog={data} />
       </section>
 

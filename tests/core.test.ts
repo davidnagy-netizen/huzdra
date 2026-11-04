@@ -8,9 +8,11 @@ import { MockLyricsAdapter } from "../src/lib/pipeline/adapters/mock";
 import { synthesizeWav } from "../src/lib/audio/synth";
 import * as seed from "../src/lib/data/seed";
 import type { Order, WizardData } from "../src/lib/types";
+import { MockRepository } from "../src/lib/db/mock-repository";
+import { formatSurcharge } from "../src/lib/pricing";
 
 const catalog = { packages: seed.packages, extras: seed.extras };
-const robi = seed.artists[0];
+const robi = seed.artists.find((a) => a.id === "art_tuzrozsa_duo")!; // 2000 Ft felár
 
 test("árazás: csomag + előadói felár + extrák + kupon", () => {
   const p = calculatePrice({ packageId: "holnapra", artist: robi, extras: ["pdf", "elo-eloadas"], coupon: { code: "LAGZI10", percentOff: 10, active: true } }, catalog);
@@ -81,4 +83,29 @@ test("szintetizátor: érvényes WAV, metaadattal", () => {
   assert.equal(wav.toString("ascii", 0, 4), "RIFF");
   assert.equal(wav.toString("ascii", 8, 12), "WAVE");
   assert.ok(wav.includes(Buffer.from("wm_123")));
+});
+
+test("előadók: a hamarosan-előadók nem rendelhetők, de listázhatók", async () => {
+  const repo = new MockRepository(null);
+  const available = await repo.listArtists();
+  const soon = await repo.listComingSoonArtists();
+  assert.equal(available.length, 5);
+  assert.ok(available.every((a) => a.kind === "house"));
+  assert.deepEqual(soon.map((a) => a.slug).sort(), ["bitto-duo", "dogos-robi"]);
+  const samples = await repo.listSamples();
+  assert.ok(samples.every((s) => available.some((a) => a.id === s.artistId)));
+  const bad = validateAll({ ...full, artistId: "art_dogos_robi" }, { validArtistIds: available.map((a) => a.id) });
+  assert.equal(bad?.step, 0);
+});
+
+test("várólista: duplikált feliratkozás nem jön létre kétszer", async () => {
+  const repo = new MockRepository(null);
+  const e = { id: "w1", artistId: "art_bitto_duo", email: "A@b.hu", createdAt: "" };
+  assert.equal((await repo.addToWaitlist(e)).created, true);
+  assert.equal((await repo.addToWaitlist({ ...e, id: "w2", email: "a@b.hu" })).created, false);
+});
+
+test("felár megjelenítése", () => {
+  assert.equal(formatSurcharge(0), "felár nélkül");
+  assert.match(formatSurcharge(1500), /^\+1\s?500 Ft$/);
 });

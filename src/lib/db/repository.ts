@@ -16,10 +16,14 @@ import type {
   SampleSong,
   SiteStats,
   Style,
+  WaitlistEntry,
 } from "../types";
 
 export interface Repository {
+  /** Rendelhető előadók (elérhető + aláírt licenc/hozzájárulás). */
   listArtists(opts?: { includeInactive?: boolean }): Promise<Artist[]>;
+  /** Megjelenített, de még nem rendelhető ("hamarosan") előadók. */
+  listComingSoonArtists(): Promise<Artist[]>;
   getArtistById(id: string): Promise<Artist | null>;
   getArtistBySlug(slug: string): Promise<Artist | null>;
 
@@ -46,5 +50,6 @@ export interface Repository {
   listOrders(): Promise<Order[]>;
 
   createLead(lead: Lead): Promise<Lead>;
+  addToWaitlist(entry: WaitlistEntry): Promise<{ created: boolean }>;
   saveEmail(msg: EmailMessage): Promise<void>;
 }

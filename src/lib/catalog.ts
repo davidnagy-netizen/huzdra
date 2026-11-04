@@ -6,7 +6,10 @@ import type { Artist, Extra, Faq, Occasion, Package, Review, SampleSong, SiteSta
 export type PublicArtist = Omit<Artist, "royaltyPercent" | "voiceModelId" | "licenseSignedAt">;
 
 export interface Catalog {
+  /** Rendelhető előadók */
   artists: PublicArtist[];
+  /** "Hamarosan" előadók – megjelennek, de nem rendelhetők */
+  comingSoon: PublicArtist[];
   occasions: Occasion[];
   styles: Style[];
   samples: SampleSong[];
@@ -22,15 +25,16 @@ export function toPublicArtist(a: Artist): PublicArtist {
 
 export async function getCatalog(): Promise<Catalog> {
   const repo = getRepo();
-  const [artists, occasions, styles, samples, packages, extras] = await Promise.all([
+  const [artists, comingSoon, occasions, styles, samples, packages, extras] = await Promise.all([
     repo.listArtists(),
+    repo.listComingSoonArtists(),
     repo.listOccasions(),
     repo.listStyles(),
     repo.listSamples(),
     repo.listPackages(),
     repo.listExtras(),
   ]);
-  return { artists: artists.map(toPublicArtist), occasions, styles, samples, packages, extras };
+  return { artists: artists.map(toPublicArtist), comingSoon: comingSoon.map(toPublicArtist), occasions, styles, samples, packages, extras };
 }
 
 export async function getHomeData(): Promise<Catalog & { reviews: Review[]; faqs: Faq[]; stats: SiteStats }> {

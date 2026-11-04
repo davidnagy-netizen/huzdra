@@ -203,7 +203,7 @@ export async function advanceOrder(orderId: string): Promise<void> {
       );
       await save(delivered);
       const songUrl = `${SITE.url}/dal/${order.songToken}`;
-      const mail = deliveryEmail({ order: delivered, artistName: artist.name, songUrl, disclosure: aiDisclosure(artist.name) });
+      const mail = deliveryEmail({ order: delivered, artistName: artist.name, songUrl, disclosure: aiDisclosure(artist) });
       await adapters.email.send({ to: order.data.email, ...mail });
       await repo.saveEmail({ id: token(6), to: order.data.email, ...mail, createdAt: new Date().toISOString() });
       return;

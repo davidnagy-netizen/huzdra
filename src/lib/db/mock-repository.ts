@@ -15,6 +15,7 @@ import type {
   Review,
   SampleSong,
   Style,
+  WaitlistEntry,
 } from "../types";
 import type { Repository } from "./repository";
 
@@ -33,10 +34,11 @@ interface DbShape {
   orders: Order[];
   leads: Lead[];
   outbox: EmailMessage[];
+  waitlist: WaitlistEntry[];
   settings: { happyFamiliesBaseline: number };
 }
 
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 function seedDb(): DbShape {
   return {
@@ -54,6 +56,7 @@ function seedDb(): DbShape {
     orders: [],
     leads: [],
     outbox: [],
+    waitlist: [],
     settings: { happyFamiliesBaseline: seed.demoHappyFamilies },
   };
 }
@@ -98,7 +101,12 @@ export class MockRepository implements Repository {
 
   async listArtists(opts?: { includeInactive?: boolean }) {
     return this.db.artists
-      .filter((a) => opts?.includeInactive || (a.active && a.licenseSignedAt))
+      .filter((a) => opts?.includeInactive || (a.active && a.availability === "available" && a.licenseSignedAt && a.voiceModelId))
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+  }
+  async listComingSoonArtists() {
+    return this.db.artists
+      .filter((a) => a.active && a.availability === "coming_soon")
       .sort((a, b) => a.sortOrder - b.sortOrder);
   }
   async getArtistById(id: string) {
@@ -205,6 +213,13 @@ export class MockRepository implements Repository {
     this.db.leads.push(lead);
     this.persist();
     return lead;
+  }
+  async addToWaitlist(entry: WaitlistEntry) {
+    const email = entry.email.trim().toLowerCase();
+    if (this.db.waitlist.some((w) => w.artistId === entry.artistId && w.email === email)) return { created: false };
+    this.db.waitlist.push({ ...entry, email });
+    this.persist();
+    return { created: true };
   }
   async saveEmail(msg: EmailMessage) {
     this.db.outbox.push(msg);

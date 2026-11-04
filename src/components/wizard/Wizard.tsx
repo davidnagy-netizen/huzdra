@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { track } from "@/lib/analytics";
 import type { Catalog } from "@/lib/catalog";
 import { CATEGORY_LABELS, moderateFields } from "@/lib/moderation";
-import { calculatePrice, formatHuf } from "@/lib/pricing";
+import { calculatePrice, formatHuf, formatSurcharge } from "@/lib/pricing";
 import type { Coupon, ExtraId, Mood, OccasionId, PackageId, Tempo, WizardData } from "@/lib/types";
 import { PRESET_EVENT, type WizardPreset } from "@/lib/wizard-bus";
 import { EMPTY_WIZARD, LIMITS, RELATIONS, WIZARD_STEPS, validateStep, type StepErrors } from "@/lib/wizard-schema";
@@ -346,11 +346,11 @@ function StepArtist({ catalog, data, update, errors }: StepProps & { catalog: Ca
               <button type="button" role="radio" aria-checked={on} onClick={() => { update("artistId", a.id); track("artist_select", { artist: a.slug, source: "wizard" }); }} className="block w-full text-left">
                 <div className="relative aspect-[16/9]">
                   <ArtistPortrait artist={a} />
-                  <OfficialBadge className="absolute left-2 top-2" />
+                  <OfficialBadge className="absolute left-2 top-2" kind={a.kind} />
                   {on && <span className="absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full bg-gold text-on-gold"><CheckIcon size={18} strokeWidth={3} /></span>}
                 </div>
                 <div className="p-4">
-                  <p className="flex items-baseline justify-between font-display text-xl font-bold">{a.name}<span className="font-sans text-sm font-semibold text-muted">+{formatHuf(a.surchargeHuf)}</span></p>
+                  <p className="flex items-baseline justify-between font-display text-xl font-bold">{a.name}<span className="font-sans text-sm font-semibold text-muted">{formatSurcharge(a.surchargeHuf)}</span></p>
                   <p className="text-sm text-muted">{a.tagline}</p>
                 </div>
               </button>
@@ -364,6 +364,11 @@ function StepArtist({ catalog, data, update, errors }: StepProps & { catalog: Ca
           );
         })}
       </div>
+      {catalog.comingSoon.length > 0 && (
+        <p className="mt-3 rounded-xl border border-dashed border-line p-3 text-sm text-muted">
+          ⏳ Hamarosan: {catalog.comingSoon.map((a) => a.name).join(", ")} hivatalos hangja is választható lesz.
+        </p>
+      )}
       <FieldError id="artist-e" msg={errors.artistId} />
     </fieldset>
   );

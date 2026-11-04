@@ -43,3 +43,8 @@ const huf = new Intl.NumberFormat("hu-HU", { maximumFractionDigits: 0 });
 export function formatHuf(amount: number): string {
   return `${huf.format(amount)} Ft`;
 }
+
+/** Előadói felár megjelenítése: 0 Ft esetén "felár nélkül". */
+export function formatSurcharge(amount: number): string {
+  return amount > 0 ? `+${formatHuf(amount)}` : "felár nélkül";
+}

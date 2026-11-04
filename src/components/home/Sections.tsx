@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Catalog } from "@/lib/catalog";
-import { formatHuf } from "@/lib/pricing";
+import { formatHuf, formatSurcharge } from "@/lib/pricing";
 import { SITE } from "@/lib/site";
 import type { Faq, Review, SiteStats } from "@/lib/types";
 import {
@@ -90,7 +90,7 @@ export function Hero({ stats, title, sub }: { stats: SiteStats; title?: React.Re
 export function HowItWorks() {
   const steps = [
     { icon: <PenIcon size={28} />, t: "Mesélj", d: "Kinek szól, mi a közös sztorink, milyen poénok jöhetnek – 5 perc az egész." },
-    { icon: <MicIcon size={28} />, t: "Elkészül az előadó hangján", d: "Megírjuk a dalszöveget, és a választott előadó hivatalos hangján rögzítjük." },
+    { icon: <MicIcon size={28} />, t: "Elkészül az előadó hangján", d: "Megírjuk a dalszöveget, és a választott előadó hangján rögzítjük." },
     { icon: <MailIcon size={28} />, t: "Linket kapsz e-mailben", d: "Meghallgatod, letöltöd, továbbküldöd a DJ-nek. Csak ekkor terheljük a kártyád." },
   ];
   return (
@@ -194,7 +194,7 @@ export function Pricing({ catalog }: { catalog: Catalog }) {
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-sm text-muted">Az előadói felár előadónként eltérő ({catalog.artists.map((a) => `${a.name}: +${formatHuf(a.surchargeHuf)}`).join(", ")}). Elégedettségi garancia: ha a 2 javítás után sem tetszik, visszaadjuk az árát.</p>
+        <p className="mt-4 text-sm text-muted">Az előadói felár előadónként eltérő ({catalog.artists.map((a) => `${a.name}: ${formatSurcharge(a.surchargeHuf)}`).join(", ")}). Elégedettségi garancia: ha a 2 javítás után sem tetszik, visszaadjuk az árát.</p>
       </div>
     </>
   );

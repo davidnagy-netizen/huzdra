@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { HomeView } from "@/components/home/HomeView";
 import { getHomeData } from "@/lib/catalog";
 import { getRepo } from "@/lib/db";
@@ -25,8 +25,8 @@ export async function generateMetadata(props: PageProps<"/[landing]">): Promise<
     return { title: r.occ.title, description: r.occ.description, alternates: { canonical: `/${r.occ.slug}` } };
   }
   return {
-    title: `${r.artist.name} egyedi dal – saját nóta a hivatalos hangján`,
-    description: `Rendelj személyre szóló dalt ${r.artist.name} hivatalos, licencelt hangján lagzira, szülinapra, keresztelőre. Fizetés csak ha kész.`,
+    title: `${r.artist.name} egyedi dal – saját nóta az ő hangján`,
+    description: `Rendelj személyre szóló dalt ${r.artist.name} hangján lagzira, szülinapra, keresztelőre. Fizetés csak ha kész.`,
     alternates: { canonical: `/${landing}` },
     openGraph: { images: [`/eloadok/${r.artist.slug}/opengraph-image`] },
   };
@@ -36,6 +36,7 @@ export default async function LandingPage(props: PageProps<"/[landing]">) {
   const { landing } = await props.params;
   const r = await resolve(landing);
   if (!r) notFound();
+  if (r.kind === "artist" && r.artist.availability === "coming_soon") redirect(`/eloadok/${r.artist.slug}`);
   const data = await getHomeData();
   if (r.kind === "occasion") {
     return <HomeView data={data} hero={{ title: r.occ.h1, sub: r.occ.sub }} preset={{ occasionId: r.occ.occasionId }} initialOccasion={r.occ.occasionId} />;
@@ -46,7 +47,7 @@ export default async function LandingPage(props: PageProps<"/[landing]">) {
       hero={{
         title: (
           <>
-            Egyedi dal <span className="text-gradient-gold">{r.artist.name}</span> hivatalos hangján
+            Egyedi dal <span className="text-gradient-gold">{r.artist.name}</span> hangján
           </>
         ),
         sub: `${r.artist.tagline} Mondd el a történeted, ${r.artist.name} pedig elénekli – akár pár órán belül.`,

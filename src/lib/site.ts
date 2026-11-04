@@ -11,6 +11,14 @@ export const SITE = {
 
 export const isMock = () => process.env.HUZDRA_MOCK !== "0";
 
-export function aiDisclosure(artistName: string) {
-  return `A dal mesterséges intelligenciával készül ${artistName} hivatalos, engedélyezett hangmodelljével.`;
+/** Kötelező MI-közlés (dal-oldal, GYIK, e-mail). Hírességnél a licencelt hangmodellt is megnevezi. */
+export function aiDisclosure(artist: { name: string; kind: "celebrity" | "house" }) {
+  return artist.kind === "celebrity"
+    ? `A dal mesterséges intelligenciával készül ${artist.name} hivatalos, engedélyezett hangmodelljével.`
+    : `A dal mesterséges intelligencia segítségével készül, ${artist.name} hangján.`;
+}
+
+/** Jelvény szövege: csak licencelt híresség kaphat "Hivatalos hang" jelvényt. */
+export function voiceBadgeLabel(kind: "celebrity" | "house") {
+  return kind === "celebrity" ? "Hivatalos hang" : "Húzdrá! hang";
 }

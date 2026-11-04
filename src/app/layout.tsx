@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Húzdrá! – Egyedi mulatós dal ajándékba, kedvenc előadód hangján",
     template: "%s | Húzdrá!",
   },
-  description: `${SITE.slogan} Személyre szóló mulatós és roma zenei dal lagzira, keresztelőre, szülinapra – Dögös Robi és a Bitto Duó hivatalos hangján.`,
+  description: `${SITE.slogan} Személyre szóló mulatós és roma zenei dal lagzira, keresztelőre, szülinapra – akár pár órán belül, fizetés csak ha kész.`,
   applicationName: "Húzdrá!",
   openGraph: { type: "website", locale: "hu_HU", siteName: "Húzdrá!", url: SITE.url },
   twitter: { card: "summary_large_image" },

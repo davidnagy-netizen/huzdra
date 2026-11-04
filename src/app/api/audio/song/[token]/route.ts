@@ -18,7 +18,7 @@ export async function GET(req: Request, ctx: RouteContext<"/api/audio/song/[toke
       title: order.lyrics?.title ?? "Húzdrá! dal",
       artist: artist?.name ?? "Húzdrá!",
       // Mock vízjel: azonosító metaadat. Élesben hallhatatlan audio vízjel is kerül bele.
-      comment: `Húzdrá! AI-dal, ${artist?.name} hivatalos hangmodellje. Watermark: ${order.audio.watermarkId}. Személyes, nem kereskedelmi felhasználásra.`,
+      comment: `Húzdrá! AI-dal, ${artist?.name} hangmodellje (${artist?.kind === "celebrity" ? "licencelt" : "Húzdrá! saját"}). Watermark: ${order.audio.watermarkId}. Személyes, nem kereskedelmi felhasználásra.`,
     },
   });
   const download = new URL(req.url).searchParams.get("download") === "1";
