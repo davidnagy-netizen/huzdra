@@ -2,8 +2,9 @@ import "server-only";
 import { getRepo } from "./db";
 import type { Artist, Extra, Faq, Occasion, Package, Review, SampleSong, SiteStats, Style } from "./types";
 
-/** A kliensnek átadható, publikus katalógus (belső mezők – jogdíj, hangmodell – nélkül). */
-export type PublicArtist = Omit<Artist, "royaltyPercent" | "voiceModelId" | "licenseSignedAt">;
+import { toAnonymousArtist, toPublicArtist, type PublicArtist } from "./artist-public";
+
+export { toAnonymousArtist, toPublicArtist, type PublicArtist };
 
 export interface Catalog {
   /** Rendelhető előadók */
@@ -17,12 +18,6 @@ export interface Catalog {
   extras: Extra[];
 }
 
-export function toPublicArtist(a: Artist): PublicArtist {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { royaltyPercent, voiceModelId, licenseSignedAt, ...rest } = a;
-  return rest;
-}
-
 export async function getCatalog(): Promise<Catalog> {
   const repo = getRepo();
   const [artists, comingSoon, occasions, styles, samples, packages, extras] = await Promise.all([
@@ -34,7 +29,7 @@ export async function getCatalog(): Promise<Catalog> {
     repo.listPackages(),
     repo.listExtras(),
   ]);
-  return { artists: artists.map(toPublicArtist), comingSoon: comingSoon.map(toPublicArtist), occasions, styles, samples, packages, extras };
+  return { artists: artists.map(toPublicArtist), comingSoon: comingSoon.map(toAnonymousArtist), occasions, styles, samples, packages, extras };
 }
 
 export async function getHomeData(): Promise<Catalog & { reviews: Review[]; faqs: Faq[]; stats: SiteStats }> {

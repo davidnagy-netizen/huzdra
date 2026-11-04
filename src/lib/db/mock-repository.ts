@@ -38,7 +38,7 @@ interface DbShape {
   settings: { happyFamiliesBaseline: number };
 }
 
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 function seedDb(): DbShape {
   return {
@@ -113,7 +113,8 @@ export class MockRepository implements Repository {
     return this.db.artists.find((a) => a.id === id) ?? null;
   }
   async getArtistBySlug(slug: string) {
-    return this.db.artists.find((a) => a.slug === slug && a.active) ?? null;
+    // Egyeztetés alatt álló előadó nem érhető el nyilvános URL-en.
+    return this.db.artists.find((a) => a.slug === slug && a.active && a.availability === "available") ?? null;
   }
   async listOccasions() {
     return [...this.db.occasions].sort((a, b) => a.sortOrder - b.sortOrder);

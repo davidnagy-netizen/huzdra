@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const repo = getRepo();
-  const [artists, comingSoon] = await Promise.all([repo.listArtists(), repo.listComingSoonArtists()]);
+  const artists = await repo.listArtists();
   const now = new Date();
   return [
     { url: SITE.url, lastModified: now, priority: 1 },
@@ -17,7 +17,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: `${SITE.url}/eloadok/${a.slug}`, lastModified: now, priority: 0.8 },
       { url: `${SITE.url}/${a.slug}${ARTIST_LANDING_SUFFIX}`, lastModified: now, priority: 0.8 },
     ]),
-    ...comingSoon.map((a) => ({ url: `${SITE.url}/eloadok/${a.slug}`, lastModified: now, priority: 0.5 })),
     ...LEGAL_DOCS.map((d) => ({ url: `${SITE.url}/jogi/${d.slug}`, lastModified: now, priority: 0.2 })),
   ];
 }

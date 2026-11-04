@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { HomeView } from "@/components/home/HomeView";
 import { getHomeData } from "@/lib/catalog";
 import { getRepo } from "@/lib/db";
@@ -36,7 +36,6 @@ export default async function LandingPage(props: PageProps<"/[landing]">) {
   const { landing } = await props.params;
   const r = await resolve(landing);
   if (!r) notFound();
-  if (r.kind === "artist" && r.artist.availability === "coming_soon") redirect(`/eloadok/${r.artist.slug}`);
   const data = await getHomeData();
   if (r.kind === "occasion") {
     return <HomeView data={data} hero={{ title: r.occ.h1, sub: r.occ.sub }} preset={{ occasionId: r.occ.occasionId }} initialOccasion={r.occ.occasionId} />;

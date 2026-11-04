@@ -32,7 +32,7 @@ A mock adatbázis a `.data/db.json` fájlban van. Ha törlöd, induláskor újra
 - **Mock backend**: rendelés → tartalomszűrés → dalszöveg → előadói jóváhagyás → felvétel →
   QC → terhelés → e-mail → dal-oldal → javításkérés (max. 2) → elfogadás.
 - **Oldalak**: előadói profil (`/eloadok/[slug]`), SEO landingek (`/lakodalmas-dal`,
-  `/dogos-robi-egyedi-dal` …), rendeléskövetés (`/rendelesem`), tokenes dal-oldal (`/dal/[token]`),
+  `/barsony-dani-egyedi-dal` …), rendeléskövetés (`/rendelesem`), tokenes dal-oldal (`/dal/[token]`),
   jogi tervezetek (`/jogi/*`), `sitemap.xml`, `robots.txt`, OG-képek előadónként.
 - Világos és sötét mód, cookie banner, GA4 és Meta Pixel események (csak hozzájárulás után).
 - `huzdra.hu` (punycode: `xn--hzdr-8na0m.hu`) és `www` → 301 a `next.config.ts`-ben.

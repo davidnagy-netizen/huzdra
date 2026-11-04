@@ -366,7 +366,7 @@ function StepArtist({ catalog, data, update, errors }: StepProps & { catalog: Ca
       </div>
       {catalog.comingSoon.length > 0 && (
         <p className="mt-3 rounded-xl border border-dashed border-line p-3 text-sm text-muted">
-          ⏳ Hamarosan: {catalog.comingSoon.map((a) => a.name).join(", ")} hivatalos hangja is választható lesz.
+          🤝 Hamarosan ismert előadók hivatalos hangja is választható lesz – az egyeztetés folyamatban van.
         </p>
       )}
       <FieldError id="artist-e" msg={errors.artistId} />
