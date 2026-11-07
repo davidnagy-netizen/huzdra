@@ -2,79 +2,115 @@
 
 > Mondd el a történeted, mi meg húzzuk rá!
 
-Személyre szóló mulatós és roma zenei dalok ajándékba, az előadók hivatalos, licencelt hangján.
-Next.js 16 (App Router) + TypeScript + Tailwind CSS 4.
+Személyre szóló mulatós és roma zenei dalok ajándékba. Next.js 16 (App Router) + TypeScript +
+Tailwind CSS 4, Supabase (Postgres + Storage + Auth), Claude AI, külső zene-API.
 
-## Indítás
+## Gyors indítás (helyi demó, semmilyen kulcs nélkül)
 
 ```bash
 npm install
-cp .env.example .env.local   # opcionális
-npm run dev                  # http://localhost:3000
+npm run dev          # http://localhost:3000
 ```
+
+- Weboldal: `/` · Hirdetési one-pager: `/probald` · Admin: `/admin` (demó belépés `npm run dev` alatt: `admin@huzdra.hu` / `huzdra-admin`;
+  `npm start` / éles módban nincs alapértelmezett jelszó: `ADMIN_PASSWORD` + `ADMIN_SESSION_SECRET` kell, Supabase-zel pedig Supabase Auth)
+- Az adatok a `.data/` mappában vannak (törölve újraindul a demó-adatokkal).
+- Kulcsok nélkül: szabályalapú AI (szupport + sablon dalszöveg), helykitöltő hang, tesztfizetés.
 
 ```bash
-npm test         # egységtesztek (árazás, állapotgép, moderáció, validáció, mock szöveg, WAV)
-npm run lint     # típusellenőrzés
-npm run build    # production build
+npm test             # 29 egység- és sématest (PGlite-tal valódi Postgresben)
+npm run lint         # típusellenőrzés
+npm run build        # production build
 ```
 
-A mock adatbázis a `.data/db.json` fájlban van. Ha törlöd, induláskor újra feltöltődik a seed adatokkal.
+## Mit tud
 
-## Mi készült el (1. fázis)
+**1. Teljesen automatikus rendelés és dalgenerálás**
+rendelés → tartalomszűrő → dalszöveg (Claude) → [előadói jóváhagyás] → zene + ének (zene-API, tanított
+stílusmodellel) → **automatikus QC** (név a szövegben, tiltott téma, moderáció, hangfájl) → terhelés →
+e-mail → dal-oldal. Hiba esetén automatikus újrapróbálás, 3 sikertelen kör után „Figyelmet igényel” az
+adminban. Emberi beavatkozás csak a kétes esetekben kell.
 
-- **Főoldal** mind a 12 szekcióval: hero, előadóválasztó, mintadal-lejátszó, mintadalrács
-  szűrő chipekkel, „Hogyan működik?”, vélemények, összehasonlítás, rendelési varázsló, árak,
-  GYIK, záró CTA, lábléc.
-- **Rendelési varázsló** (6 lépés): folyamatjelző, élő végösszeg, lépésenkénti validálás,
-  automatikus mentés (localStorage + `/api/drafts`), kuponkód, tartalomszűrő-figyelmeztetés,
-  „fizetés csak ha kész” (mock kártyarögzítés), élő fellépés lead.
-- **Mock backend**: rendelés → tartalomszűrés → dalszöveg → előadói jóváhagyás → felvétel →
-  QC → terhelés → e-mail → dal-oldal → javításkérés (max. 2) → elfogadás.
-- **Oldalak**: előadói profil (`/eloadok/[slug]`), SEO landingek (`/lakodalmas-dal`,
-  `/barsony-dani-egyedi-dal` …), rendeléskövetés (`/rendelesem`), tokenes dal-oldal (`/dal/[token]`),
-  jogi tervezetek (`/jogi/*`), `sitemap.xml`, `robots.txt`, OG-képek előadónként.
-- Világos és sötét mód, cookie banner, GA4 és Meta Pixel események (csak hozzájárulás után).
-- `huzdra.hu` (punycode: `xn--hzdr-8na0m.hu`) és `www` → 301 a `next.config.ts`-ben.
+**Automatikus ügyfélszolgálat** – e-mail (`/api/support/inbound`), dal-oldali „Írj nekünk” és szimulátor:
+- *„Nem Zsófi, hanem Zsófia a helyes”* → névjavítás (csak a hibás névrész cserélődik), újragenerálás,
+  új dal e-mailben, ingyen. Ha a név nem egyértelmű, visszakérdez, és a válaszból folytatja.
+- kiejtés → csak a hang készül újra · tartalmi kérés → javítási kör · „mikor lesz kész?” → állapot + link
+- visszatérítés / lemondás → **mindig emberhez** kerül (pénzügy).
+- Módosítás csak igazolt rendelőnek (egyező e-mail vagy tokenes dal-oldal); idegen feladó → emberi ellenőrzés.
+
+**2. Zenék és tanítás (admin)** – mintazenék feltöltése közvetlenül a Supabase Storage-ba (max. 200 MB,
+nem megy át a szerveren), a böngésző feltöltéskor megméri a tempót és a hangnemet, kötelező jogtisztasági
+megerősítés, tanítás indítása a kiválasztott mintákból a zene-API-n, a kész modell aktiválása stílusonként.
+
+**3. Admin** – áttekintés (bevétel, kosárérték, tölcsérek, bontás előadó/alkalom/csomag szerint, teendők),
+rendelések (szűrés, részletek, minden művelet: QC, újragenerálás, szövegszerkesztés, névjavítás, lemondás +
+visszatérítés, jegyzetek, idővonal), QC/moderációs sor, szupport (jegyek, válasz, szimulátor), előadók és
+**felárak**, csomagok és árak, extrák, kuponok, mintadalok, vélemények, GYIK, leadek/várólista, beállítások
+(automatizálás ki/be, magabiztossági küszöb, előnézet hossza és korlátja).
+
+**4. Hirdetési one-pager (`/probald`)** – 6 kérdés → 15 mp-es előnézet (versszak + refrén) → ugyanott
+megvásárolható; a teljes dal az előnézet szövegére épül. IP-alapú óránkénti korlát, GA4/Meta események
+(`preview_start`, `preview_ready`, `preview_purchase`).
+
+## Élesítés: Supabase + Vercel
+
+### 1. Supabase projekt
+1. Hozz létre projektet a [supabase.com](https://supabase.com)-on (régió: Frankfurt).
+2. **SQL Editor** → futtasd sorban: `supabase/migrations/0001_init.sql`, majd `0002_storage.sql`.
+3. **Project Settings → API**: másold ki a `Project URL`-t és a `service_role` kulcsot.
+4. Feltöltés + admin felhasználó:
+   ```bash
+   SUPABASE_URL=https://xxxx.supabase.co SUPABASE_SERVICE_ROLE_KEY=... npm run db:seed -- --admin te@cimed.hu:LegalabbTizenketKarakter
+   ```
+   (`--demo-reviews` csak teszthez – a kitalált véleményeket élesben ne töltsd fel.)
+
+### 2. Vercel
+Importáld a GitHub repót, és add meg a környezeti változókat (lásd `.env.example`):
+
+| Változó | Mire kell |
+| --- | --- |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | adatbázis, tárhely, admin belépés |
+| `ADMIN_SESSION_SECRET` | admin munkamenet aláírása (min. 32 véletlen karakter) |
+| `CRON_SECRET` | háttérfeldolgozó védelme (Vercel Cron automatikusan küldi) |
+| `ANTHROPIC_API_KEY` | Claude: dalszöveg + szupport-elemzés (modell: `claude-opus-5-5`) |
+| `MUSIC_API_URL`, `MUSIC_API_KEY` | zene-API (tanítás + generálás) – szerződés: [docs/zene-api.md](docs/zene-api.md) |
+| `SUPPORT_INBOUND_SECRET` | bejövő e-mailek webhookja |
+| `NEXT_PUBLIC_SITE_URL` | `https://huzdra.hu` |
+| `NEXT_PUBLIC_GA4_ID`, `NEXT_PUBLIC_META_PIXEL_ID` | analitika (csak hozzájárulás után tölt be) |
+
+A `vercel.json` percenkénti cronnal hívja a `/api/cron/worker` feldolgozót (Vercel Pro szükséges a
+percenkénti cronhoz; alternatíva: Supabase `pg_cron` – lásd `0002_storage.sql` alján).
+
+### 3. Bejövő e-mail (szupport)
+Állíts be egy inbound e-mail szolgáltatást (pl. Resend Inbound, Postmark), amely a
+`hello@huzdra.hu`-ra érkező leveleket JSON-ként POST-olja ide:
+`https://huzdra.hu/api/support/inbound?secret=<SUPPORT_INBOUND_SECRET>` (`{ from, subject, text }`).
+Olyan szolgáltatót válassz, amely ellenőrzi a feladót (SPF/DKIM).
+
+## Még hátravan élesítés előtt
+
+| Elem | Állapot |
+| --- | --- |
+| Fizetés | **mock** – Stripe / Barion (kártyazárolás + terhelés kézbesítéskor) bekötése szükséges. Amíg nincs bekötve, hagyd `HUZDRA_MOCK=1`-en (demó sáv). |
+| Kimenő e-mail | konzol + napló – Resend bekötése szükséges |
+| Zene-API | a szerződés kész; a szolgáltatót / saját modellt be kell kötni (`MUSIC_API_URL`) |
+| Ismert előadók | „egyeztetés alatt”, név nélkül; aláírás után adminban: típus, licenc dátuma, hangmodell, elérhető |
+| Vélemények, „boldog családok” | demó → valós adatra cserélendő |
+| Jogi szövegek | tervezet → jogász véglegesítse |
+| A GitHub repó | legyen **privát** (a korai commitokban előadónevek szerepelnek) |
 
 ## Felépítés
 
 ```
-src/lib/types.ts                 domain-modell
-src/lib/data/seed.ts             seed adatok (előadók, csomagok, mintadalok, GYIK)
-src/lib/db/                      Repository interfész + JSON mock implementáció
-src/lib/pipeline/state-machine   állapotgép (átmenetek, ügyfélnek mutatott lépések)
-src/lib/pipeline/orchestrator    rendelés felvétele és léptetése, javítás, elfogadás
-src/lib/pipeline/adapters/       LLM / zene / hang / vízjel / moderáció / fizetés / e-mail adapterek
-src/lib/pipeline/prompts.ts      a valódi LLM dalszöveg-prompt műfaji szabályai
-src/lib/pipeline/queue.ts        háttérfeladat-sor absztrakció (mock: folyamaton belüli)
-src/lib/moderation.ts            szabályalapú tartalomszűrő
-src/lib/wizard-schema.ts         varázsló validálás (kliens + szerver)
-src/lib/audio/synth.ts           helykitöltő dallam-szintetizátor (WAV + metaadat-„vízjel”)
-supabase/migrations/             Postgres séma, RLS, GDPR-törlő függvény
+src/app/(site)/          nyilvános oldalak (főoldal, előadók, landingek, rendeléskövetés, dal-oldal, jogi)
+src/app/probald/         hirdetési one-pager
+src/app/admin/           admin (login + (panel)/…)
+src/app/api/             API: rendelés, előnézet, szupport, admin, tárhely, cron worker
+src/lib/pipeline/        orchestrator (állapotgép-vezérlés), support, preview, training, queue, jobs,
+                         rules (tiszta szabályok), support-rules (magyar szándékfelismerés), adapters/
+src/lib/db/              Repository interfész · mock (JSON) · Supabase · mapping (camel ↔ snake)
+src/lib/storage/         tárhely-adapter (helyi / Supabase Storage, aláírt fel- és letöltés)
+supabase/migrations/     séma, RLS, claim_jobs, GDPR-takarítás, tárolók
+scripts/supabase-seed.ts kezdeti feltöltés + admin felhasználó
+docs/zene-api.md         a zene-API REST szerződése
 ```
-
-## Mock mód – amit élesítés előtt cserélni kell
-
-| Elem | Most | Élesben |
-| --- | --- | --- |
-| Adatbázis | `.data/db.json` | Supabase (`supabase/migrations/0001_init.sql`) |
-| Dalszöveg | sablon (`MockLyricsAdapter`) | LLM-adapter a `prompts.ts` szabályaival |
-| Zene + ének | generált helykitöltő dallam | zenegeneráló + licencelt hangmodell |
-| Vízjel | WAV metaadat | hallhatatlan audio vízjel + metaadat |
-| Fizetés | gombnyomásos „tesztkártya” | Stripe SetupIntent / Barion foglalás (HUF) |
-| E-mail | konzol + `outbox` | Resend |
-| QC és előadói jóváhagyás | automatikus (`MOCK_AUTO_*`) | admin QC-sor, előadói portál |
-| Vélemények, „boldog családok” száma | **demó adat** | valódi, ellenőrzött vásárlói vélemények |
-| Mintadalok, előadói fotók | helykitöltő | licencelt felvételek és fotók |
-| Jogi szövegek | tervezet | jogász által véglegesítve |
-
-A demó sáv az oldal tetején jelzi, hogy az adatok helykitöltők (`HUZDRA_MOCK=0` kapcsolja ki).
-
-## Következő fázisok
-
-2. **Admin felület**: rendelések, QC-sor (meghallgatás, újragenerálás, szövegjavítás), moderációs sor,
-   előadók CRUD (licenc nélkül nem aktiválható), csomagok és árak, mintadalok, vélemények, kuponok,
-   statisztikák. SupabaseRepository + Auth.
-3. **Valódi adapterek**: LLM, zene, licencelt hang, vízjel, Stripe/Barion, Resend, tartós queue.
-   Előadói portál: jóváhagyási sor, jogdíj-kimutatás, booking-leadek.

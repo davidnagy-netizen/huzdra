@@ -11,7 +11,10 @@ export type TrackEvent =
   | "coupon_apply"
   | "purchase_authorized"
   | "revision_request"
-  | "song_share";
+  | "song_share"
+  | "preview_start"
+  | "preview_ready"
+  | "preview_purchase";
 
 declare global {
   interface Window {

@@ -125,10 +125,49 @@ export function SongActions({
           )}
         </div>
       )}
+      <ContactBox token={token} />
       {msg && (
         <p className={`mt-3 text-sm font-semibold ${msg.ok ? "text-gold" : "text-red"}`} role="status">
           {msg.text} {msg.href && <Link className="underline" href={msg.href}>Állapot követése</Link>}
         </p>
+      )}
+    </div>
+  );
+}
+
+/** "Írj nekünk" – a dal-oldal titkos linkje azonosítja a rendelést, így a kérés azonnal intézhető. */
+function ContactBox({ token }: { token: string }) {
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const [state, setState] = useState<{ ok: boolean; msg: string } | null>(null);
+  const [busy, setBusy] = useState(false);
+  return (
+    <div className="mt-4 rounded-2xl border border-line p-4">
+      <button type="button" className="flex w-full items-center justify-between text-left font-bold" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+        Kérdésed van, vagy rossz a név? Írj nekünk
+        <span className="text-gold" aria-hidden>{open ? "−" : "+"}</span>
+      </button>
+      {open && (
+        <div className="mt-3">
+          <label htmlFor="contact-msg" className="sr-only">Üzenet</label>
+          <textarea id="contact-msg" className="field" rows={3} maxLength={2000} value={text} onChange={(e) => setText(e.target.value)} placeholder="pl. Nem Zsófi, hanem Zsófia a helyes név. / Mikor kapom meg? / Rosszul ejti a nevet." />
+          <button
+            type="button"
+            className="btn-primary mt-3 !py-2.5 text-sm"
+            disabled={busy || text.trim().length < 5}
+            onClick={async () => {
+              setBusy(true);
+              const res = await fetch("/api/support/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ songToken: token, message: text, subject: "Üzenet a dal-oldalról" }) });
+              const j = await res.json();
+              setBusy(false);
+              setState(res.ok ? { ok: true, msg: "Megkaptuk! Pár percen belül válaszolunk e-mailben – a legtöbb kérést (pl. névjavítás) azonnal intézzük." } : { ok: false, msg: j.error });
+              if (res.ok) setText("");
+            }}
+          >
+            {busy ? "Küldés…" : "Üzenet küldése"}
+          </button>
+          {state && <p className={`mt-2 text-sm font-semibold ${state.ok ? "text-gold" : "text-red"}`} role="status">{state.msg}</p>}
+        </div>
       )}
     </div>
   );

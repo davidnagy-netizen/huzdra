@@ -1,6 +1,5 @@
 import { getRepo } from "@/lib/db";
-import { getQueue } from "@/lib/pipeline/queue";
-import "@/lib/pipeline/orchestrator";
+import { enqueue } from "@/lib/pipeline/queue";
 import { STATUS_LABELS, customerStepIndex } from "@/lib/pipeline/state-machine";
 import { isMock } from "@/lib/site";
 import type { OrderStatus } from "@/lib/types";
@@ -17,8 +16,8 @@ export async function GET(req: Request) {
 
   // Mock: ha a szerver újraindult, a sorban lévő feladat elveszhetett – újraindítjuk.
   const delay = Number(process.env.MOCK_STEP_DELAY_MS ?? 2500);
-  if (isMock() && AUTO_STATES.includes(order.status) && Date.now() - Date.parse(order.updatedAt) > delay * 3) {
-    await getQueue().enqueue({ name: "order.advance", payload: { orderId: order.id } });
+  if (isMock() && !order.attention && AUTO_STATES.includes(order.status) && Date.now() - Date.parse(order.updatedAt) > delay * 3) {
+    await enqueue("order.advance", { orderId: order.id });
   }
 
   const artist = await repo.getArtistById(order.data.artistId);

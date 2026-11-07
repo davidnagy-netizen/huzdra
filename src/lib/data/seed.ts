@@ -253,3 +253,16 @@ export const faqs: Faq[] = [
 
 /** DEMÓ érték – élesben a kézbesített rendelések számából jön. */
 export const demoHappyFamilies = 1240;
+
+/** Alapértelmezett automatizálási beállítások (adminból módosíthatók). */
+export const defaultSettings: import("../types").Settings = {
+  autoQc: true,
+  autoSupport: true,
+  supportConfidence: 0.8,
+  autoArtistApproval: true,
+  freeNameFixes: true,
+  previewEnabled: true,
+  previewSeconds: 15,
+  previewHourlyLimit: 5,
+  happyFamiliesBaseline: demoHappyFamilies,
+};

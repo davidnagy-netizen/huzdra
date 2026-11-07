@@ -7,15 +7,16 @@ export const TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
   draft: ["paid_authorized", "cancelled"],
   paid_authorized: ["lyrics_ready", "moderation_hold", "cancelled"],
   moderation_hold: ["paid_authorized", "lyrics_ready", "cancelled"],
-  lyrics_ready: ["awaiting_artist_approval", "audio_generating", "moderation_hold", "cancelled"],
+  // "paid_authorized"-be visszalépés = teljes újragenerálás (pl. névjavítás menet közben)
+  lyrics_ready: ["awaiting_artist_approval", "audio_generating", "moderation_hold", "paid_authorized", "cancelled"],
   // elutasításnál a szöveg újragenerálódik → ismét lyrics_ready
-  awaiting_artist_approval: ["audio_generating", "lyrics_ready", "cancelled"],
-  audio_generating: ["qc", "cancelled"],
+  awaiting_artist_approval: ["audio_generating", "lyrics_ready", "paid_authorized", "cancelled"],
+  audio_generating: ["qc", "audio_generating", "paid_authorized", "cancelled"],
   // QC: jóváhagyás → delivered; újragenerálás → audio_generating; szövegjavítás → lyrics_ready
-  qc: ["delivered", "audio_generating", "lyrics_ready", "cancelled"],
-  delivered: ["revision_requested", "done"],
-  revision_requested: ["lyrics_ready", "audio_generating", "moderation_hold"],
-  done: [],
+  qc: ["delivered", "audio_generating", "lyrics_ready", "paid_authorized", "cancelled"],
+  delivered: ["revision_requested", "done", "cancelled"],
+  revision_requested: ["lyrics_ready", "audio_generating", "moderation_hold", "cancelled"],
+  done: ["revision_requested"],
   cancelled: [],
 };
 

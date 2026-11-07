@@ -2,11 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Manrope, Pacifico, Playfair_Display } from "next/font/google";
 import { Analytics } from "@/components/Analytics";
 import { AudioProvider } from "@/components/audio/AudioProvider";
-import { CookieBanner } from "@/components/CookieBanner";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { themeInitScript } from "@/components/ThemeToggle";
-import { SITE, isMock } from "@/lib/site";
+import { SITE } from "@/lib/site";
 import "./globals.css";
 
 const body = Manrope({ subsets: ["latin", "latin-ext"], variable: "--font-body", display: "swap" });
@@ -45,17 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-lg focus:bg-gold focus:px-4 focus:py-2 focus:text-on-gold">
           Ugrás a tartalomra
         </a>
-        {isMock() && (
-          <div className="bg-navy px-4 py-1.5 text-center text-xs font-semibold text-white/90">
-            Demó mód – a hangok, vélemények és fizetés helykitöltők, valódi terhelés nem történik.
-          </div>
-        )}
-        <AudioProvider>
-          <Header />
-          <main id="main" className="relative">{children}</main>
-          <Footer />
-        </AudioProvider>
-        <CookieBanner />
+        <AudioProvider>{children}</AudioProvider>
         <Analytics />
       </body>
     </html>

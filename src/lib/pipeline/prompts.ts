@@ -50,7 +50,9 @@ export function buildLyricsUserPrompt(req: LyricsRequest): string {
     d.town && `Település: ${d.town}`,
     d.avoid && `EZT NE EMLÍTSD: ${d.avoid}`,
     req.revisionNotes?.length && `JAVÍTÁSI KÉRÉSEK (ezeket mindenképp vedd figyelembe):\n- ${req.revisionNotes.join("\n- ")}`,
-    req.previous && `Előző változat:\n${req.previous.text}`,
+    req.previous && !req.expandFrom && `Előző változat:\n${req.previous.text}`,
+    req.expandFrom &&
+      `ELŐNÉZET (az ügyfél ezt már meghallgatta és megvette): az alábbi versszakot és refrént SZÓ SZERINT tartsd meg, és egészítsd ki teljes dallá:\n${req.expandFrom.text}`,
   ];
   return lines.filter(Boolean).join("\n");
 }

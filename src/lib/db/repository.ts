@@ -17,6 +17,12 @@ import type {
   SiteStats,
   Style,
   WaitlistEntry,
+  Settings,
+  SupportTicket,
+  TrainingSample,
+  TrainingJob,
+  Preview,
+  CatalogEntity,
 } from "../types";
 
 export interface Repository {
@@ -52,4 +58,40 @@ export interface Repository {
   createLead(lead: Lead): Promise<Lead>;
   addToWaitlist(entry: WaitlistEntry): Promise<{ created: boolean }>;
   saveEmail(msg: EmailMessage): Promise<void>;
+  listEmails(limit?: number): Promise<EmailMessage[]>;
+
+  // --- beállítások
+  getSettings(): Promise<Settings>;
+  updateSettings(patch: Partial<Settings>): Promise<Settings>;
+
+  // --- szupport
+  createTicket(t: SupportTicket): Promise<SupportTicket>;
+  getTicket(id: string): Promise<SupportTicket | null>;
+  updateTicket(id: string, mutate: (t: SupportTicket) => SupportTicket): Promise<SupportTicket | null>;
+  listTickets(opts?: { status?: SupportTicket["status"]; orderId?: string }): Promise<SupportTicket[]>;
+  findOrdersByEmail(email: string): Promise<Order[]>;
+
+  // --- tanító zeneminták és tanítási feladatok
+  createTrainingSample(s: TrainingSample): Promise<TrainingSample>;
+  updateTrainingSample(id: string, patch: Partial<TrainingSample>): Promise<TrainingSample | null>;
+  deleteTrainingSample(id: string): Promise<void>;
+  listTrainingSamples(): Promise<TrainingSample[]>;
+  createTrainingJob(j: TrainingJob): Promise<TrainingJob>;
+  updateTrainingJob(id: string, patch: Partial<TrainingJob>): Promise<TrainingJob | null>;
+  listTrainingJobs(): Promise<TrainingJob[]>;
+
+  // --- előnézetek (hirdetési one-pager)
+  createPreview(p: Preview): Promise<Preview>;
+  getPreview(id: string): Promise<Preview | null>;
+  updatePreview(id: string, patch: Partial<Preview>): Promise<Preview | null>;
+  countPreviewsSince(ipHash: string, sinceIso: string): Promise<number>;
+  listPreviews(sinceIso?: string): Promise<Preview[]>;
+
+  // --- admin: katalógus generikus CRUD + listák
+  adminList(entity: CatalogEntity): Promise<Record<string, unknown>[]>;
+  adminUpsert(entity: CatalogEntity, row: Record<string, unknown>): Promise<Record<string, unknown>>;
+  adminDelete(entity: CatalogEntity, id: string): Promise<void>;
+  listDrafts(sinceIso?: string): Promise<Draft[]>;
+  listLeads(): Promise<Lead[]>;
+  listWaitlist(): Promise<WaitlistEntry[]>;
 }

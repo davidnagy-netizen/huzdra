@@ -1,0 +1,1488 @@
+{
+ "version": 4,
+ "artists": [
+  {
+   "id": "art_barsony_dani",
+   "kind": "house",
+   "availability": "available",
+   "slug": "barsony-dani",
+   "name": "Bársony Dani",
+   "tagline": "Lakodalmas lendület, amire a vőfély is beáll a sorba.",
+   "bio": "Bársony Dani hangja a hajnalig tartó lagzik hangja: vidám, pörgős, táncolós mulatós, amit a nagymama és az unokák egyszerre ropnak. Ha az a cél, hogy mindenki a parketten legyen, Dani a jó választás.",
+   "photos": [],
+   "styles": [
+    "lakodalmas-mulatos",
+    "porgos-csardas",
+    "nota-mix"
+   ],
+   "voiceModelId": "voice_mock_barsony_dani_v1",
+   "surchargeHuf": 1500,
+   "royaltyPercent": 0,
+   "requiresApproval": false,
+   "licenseSignedAt": "2026-11-01",
+   "accentHue": 18,
+   "active": true,
+   "sortOrder": 1
+  },
+  {
+   "id": "art_rubin_szilvi",
+   "kind": "house",
+   "availability": "available",
+   "slug": "rubin-szilvi",
+   "name": "Rubin Szilvi",
+   "tagline": "Lassú, érzelmes balladák – a szív legmélyéről.",
+   "bio": "Rubin Szilvi meleg, mély hangja a megható pillanatoké: anyák napja, évforduló, keresztelő. Roma balladák hegedűvel, amelyeknél garantáltan előkerülnek a zsebkendők.",
+   "photos": [],
+   "styles": [
+    "roma-ballada",
+    "lakodalmas-mulatos"
+   ],
+   "voiceModelId": "voice_mock_rubin_szilvi_v1",
+   "surchargeHuf": 1000,
+   "royaltyPercent": 0,
+   "requiresApproval": false,
+   "licenseSignedAt": "2026-11-01",
+   "accentHue": 345,
+   "active": true,
+   "sortOrder": 2
+  },
+  {
+   "id": "art_tuzrozsa_duo",
+   "kind": "house",
+   "availability": "available",
+   "slug": "tuzrozsa-duo",
+   "name": "Tűzrózsa Duó",
+   "tagline": "Két hang, egy szív – felelgetős duettek a nagy napra.",
+   "bio": "A Tűzrózsa Duó női és férfi hangja együtt meséli el a történetet: felelgetős versszakok, közös refrén. Lánykérésre, lagzira, évfordulóra – mindenhová, ahol két ember története a lényeg.",
+   "photos": [],
+   "styles": [
+    "duett",
+    "roma-ballada",
+    "lakodalmas-mulatos"
+   ],
+   "voiceModelId": "voice_mock_tuzrozsa_duo_v1",
+   "surchargeHuf": 2000,
+   "royaltyPercent": 0,
+   "requiresApproval": false,
+   "licenseSignedAt": "2026-11-01",
+   "accentHue": 0,
+   "active": true,
+   "sortOrder": 3
+  },
+  {
+   "id": "art_ezustvono",
+   "kind": "house",
+   "availability": "available",
+   "slug": "ezustvono-zenekar",
+   "name": "Ezüstvonó Zenekar",
+   "tagline": "Hegedű, cimbalom, gyorsuló csárdás – húzzák, ahogy kell.",
+   "bio": "Az Ezüstvonó Zenekar a hangszeres hagyományt hozza: szárnyaló hegedű, pergő cimbalom és egyre gyorsuló csárdás, a végén vastaps. Ha a dalban a zene a főszereplő, ők a te embereid.",
+   "photos": [],
+   "styles": [
+    "porgos-csardas",
+    "nota-mix",
+    "roma-ballada"
+   ],
+   "voiceModelId": "voice_mock_ezustvono_v1",
+   "surchargeHuf": 1500,
+   "royaltyPercent": 0,
+   "requiresApproval": false,
+   "licenseSignedAt": "2026-11-01",
+   "accentHue": 210,
+   "active": true,
+   "sortOrder": 4
+  },
+  {
+   "id": "art_neon_gabi",
+   "kind": "house",
+   "availability": "available",
+   "slug": "neon-gabi",
+   "name": "Neon Gabi",
+   "tagline": "Discós mulatós – szinti, gömb a plafonon, kezek a magasban.",
+   "bio": "Neon Gabi a modern mulatós hangja: lüktető szintetizátor, négynegyedes dob és refrén, amit a második kör után már mindenki kiabál. Szülinapra, szilveszterre, haveri bulira.",
+   "photos": [],
+   "styles": [
+    "discos-mulatos",
+    "lakodalmas-mulatos",
+    "nota-mix"
+   ],
+   "voiceModelId": "voice_mock_neon_gabi_v1",
+   "surchargeHuf": 0,
+   "royaltyPercent": 0,
+   "requiresApproval": false,
+   "licenseSignedAt": "2026-11-01",
+   "accentHue": 285,
+   "active": true,
+   "sortOrder": 5
+  },
+  {
+   "id": "art_celeb_1",
+   "kind": "celebrity",
+   "availability": "coming_soon",
+   "slug": "hiresseg-1",
+   "name": "Ismert előadó",
+   "tagline": "Egyeztetés alatt",
+   "bio": "",
+   "photos": [],
+   "styles": [
+    "lakodalmas-mulatos",
+    "discos-mulatos"
+   ],
+   "voiceModelId": "",
+   "surchargeHuf": 3000,
+   "royaltyPercent": 20,
+   "requiresApproval": true,
+   "licenseSignedAt": null,
+   "accentHue": 12,
+   "active": true,
+   "sortOrder": 10
+  },
+  {
+   "id": "art_celeb_2",
+   "kind": "celebrity",
+   "availability": "coming_soon",
+   "slug": "hiresseg-2",
+   "name": "Ismert előadó",
+   "tagline": "Egyeztetés alatt",
+   "bio": "",
+   "photos": [],
+   "styles": [
+    "duett",
+    "roma-ballada"
+   ],
+   "voiceModelId": "",
+   "surchargeHuf": 3000,
+   "royaltyPercent": 22,
+   "requiresApproval": true,
+   "licenseSignedAt": null,
+   "accentHue": 340,
+   "active": true,
+   "sortOrder": 11
+  }
+ ],
+ "occasions": [
+  {
+   "id": "lakodalom",
+   "label": "Lakodalom",
+   "emoji": "💍",
+   "sortOrder": 1
+  },
+  {
+   "id": "eljegyzes",
+   "label": "Eljegyzés",
+   "emoji": "💐",
+   "sortOrder": 2
+  },
+  {
+   "id": "keresztelo",
+   "label": "Keresztelő",
+   "emoji": "👶",
+   "sortOrder": 3
+  },
+  {
+   "id": "szuletesnap",
+   "label": "Születésnap",
+   "emoji": "🎂",
+   "sortOrder": 4
+  },
+  {
+   "id": "nevnap",
+   "label": "Névnap",
+   "emoji": "🌹",
+   "sortOrder": 5
+  },
+  {
+   "id": "ballagas",
+   "label": "Ballagás",
+   "emoji": "🎓",
+   "sortOrder": 6
+  },
+  {
+   "id": "evfordulo",
+   "label": "Évforduló",
+   "emoji": "🥂",
+   "sortOrder": 7
+  },
+  {
+   "id": "hazassagi-evfordulo",
+   "label": "Házassági évforduló",
+   "emoji": "💞",
+   "sortOrder": 8
+  },
+  {
+   "id": "anyak-napja",
+   "label": "Anyák napja",
+   "emoji": "🌷",
+   "sortOrder": 9
+  },
+  {
+   "id": "hazateres",
+   "label": "Hazatérés külföldről",
+   "emoji": "✈️",
+   "sortOrder": 10
+  },
+  {
+   "id": "karacsony",
+   "label": "Karácsony",
+   "emoji": "🎄",
+   "sortOrder": 11
+  },
+  {
+   "id": "szilveszter",
+   "label": "Szilveszter",
+   "emoji": "🎆",
+   "sortOrder": 12
+  },
+  {
+   "id": "haveroknak",
+   "label": "Csak úgy, a haveroknak",
+   "emoji": "🍻",
+   "sortOrder": 13
+  }
+ ],
+ "styles": [
+  {
+   "id": "lakodalmas-mulatos",
+   "label": "Lakodalmas mulatós",
+   "description": "Klasszikus lagzis lendület, amire az egész násznép táncol.",
+   "sortOrder": 1
+  },
+  {
+   "id": "porgos-csardas",
+   "label": "Pörgős csárdás",
+   "description": "Gyorsuló tempó, hegedűvel – a végén már mindenki kiabál.",
+   "sortOrder": 2
+  },
+  {
+   "id": "roma-ballada",
+   "label": "Roma ballada",
+   "description": "Lassú, érzelmes, könnyet csaló dallam a szív legmélyéről.",
+   "sortOrder": 3
+  },
+  {
+   "id": "discos-mulatos",
+   "label": "Discós mulatós",
+   "description": "Szintis alap, négynegyedes dob, csillogó gömb a plafonon.",
+   "sortOrder": 4
+  },
+  {
+   "id": "duett",
+   "label": "Duett",
+   "description": "Két hang, egy történet – felelgetős, közös refrénnel.",
+   "sortOrder": 5
+  },
+  {
+   "id": "nota-mix",
+   "label": "Nóta-mix",
+   "description": "Több tempó egy dalban: lassan indul, a végén elszabadul.",
+   "sortOrder": 6
+  }
+ ],
+ "samples": [
+  {
+   "id": "s1",
+   "artistId": "art_barsony_dani",
+   "title": "Zsuzsi és Bence, ma minden a tiétek",
+   "occasionId": "lakodalom",
+   "styleId": "lakodalmas-mulatos",
+   "tempo": "porgos",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s1",
+   "blurb": "Nyitótánc után, amikor beindul a buli.",
+   "featured": true
+  },
+  {
+   "id": "s2",
+   "artistId": "art_rubin_szilvi",
+   "title": "Anyukám keze",
+   "occasionId": "anyak-napja",
+   "styleId": "roma-ballada",
+   "tempo": "lassu",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s2",
+   "blurb": "Lassú ballada, garantált könnyekkel.",
+   "featured": true
+  },
+  {
+   "id": "s3",
+   "artistId": "art_neon_gabi",
+   "title": "Ötven éve fiatal a Laci",
+   "occasionId": "szuletesnap",
+   "styleId": "discos-mulatos",
+   "tempo": "porgos",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s3",
+   "blurb": "Kerek szülinap, csillogó discós alap.",
+   "featured": true
+  },
+  {
+   "id": "s4",
+   "artistId": "art_tuzrozsa_duo",
+   "title": "Kicsi Lilla, Isten hozott",
+   "occasionId": "keresztelo",
+   "styleId": "duett",
+   "tempo": "kozepes",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s4",
+   "blurb": "Felelgetős duett a legkisebb családtagnak.",
+   "featured": true
+  },
+  {
+   "id": "s5",
+   "artistId": "art_ezustvono",
+   "title": "Hazajött a Gergő Londonból",
+   "occasionId": "hazateres",
+   "styleId": "porgos-csardas",
+   "tempo": "porgos",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s5",
+   "blurb": "Repülőtérről egyenesen a mulatságba.",
+   "featured": true
+  },
+  {
+   "id": "s6",
+   "artistId": "art_rubin_szilvi",
+   "title": "Huszonöt év, ugyanaz a tánc",
+   "occasionId": "hazassagi-evfordulo",
+   "styleId": "roma-ballada",
+   "tempo": "lassu",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s6",
+   "blurb": "Ezüstlakodalomra, a szülők kedvenc dallamával.",
+   "featured": false
+  },
+  {
+   "id": "s7",
+   "artistId": "art_barsony_dani",
+   "title": "Komák, ma nincs hazamenés",
+   "occasionId": "haveroknak",
+   "styleId": "nota-mix",
+   "tempo": "kozepes",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s7",
+   "blurb": "A baráti társaság himnusza – lassan indul, aztán elszabadul.",
+   "featured": false
+  },
+  {
+   "id": "s8",
+   "artistId": "art_ezustvono",
+   "title": "Évi napja, piros rózsa",
+   "occasionId": "nevnap",
+   "styleId": "porgos-csardas",
+   "tempo": "porgos",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s8",
+   "blurb": "Névnapi köszöntő, amire az egész utca kijön.",
+   "featured": false
+  },
+  {
+   "id": "s9",
+   "artistId": "art_neon_gabi",
+   "title": "Éjfélkor koccintunk",
+   "occasionId": "szilveszter",
+   "styleId": "discos-mulatos",
+   "tempo": "porgos",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s9",
+   "blurb": "Visszaszámlálás után ez szóljon.",
+   "featured": false
+  },
+  {
+   "id": "s10",
+   "artistId": "art_tuzrozsa_duo",
+   "title": "Igen, százszor is igen",
+   "occasionId": "eljegyzes",
+   "styleId": "duett",
+   "tempo": "kozepes",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s10",
+   "blurb": "Lánykérésre – két hangon, egy szívvel.",
+   "featured": false
+  },
+  {
+   "id": "s11",
+   "artistId": "art_barsony_dani",
+   "title": "Kalap repül, vége a sulinak",
+   "occasionId": "ballagas",
+   "styleId": "lakodalmas-mulatos",
+   "tempo": "porgos",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s11",
+   "blurb": "Ballagási buli a ballagó tiszteletére.",
+   "featured": false
+  },
+  {
+   "id": "s12",
+   "artistId": "art_rubin_szilvi",
+   "title": "Karácsonyi csillag a nagyiéknál",
+   "occasionId": "karacsony",
+   "styleId": "roma-ballada",
+   "tempo": "lassu",
+   "durationSec": 24,
+   "audioUrl": "/api/audio/sample/s12",
+   "blurb": "Szenteste, amikor összegyűlik a család.",
+   "featured": false
+  }
+ ],
+ "reviews": [
+  {
+   "id": "r1",
+   "authorName": "Kitti",
+   "location": "Miskolc",
+   "occasionId": "lakodalom",
+   "artistId": "art_barsony_dani",
+   "rating": 5,
+   "text": "Az apósom sírva fakadt, amikor meghallotta a nevét a refrénben. Hajnalig háromszor kellett lejátszania a DJ-nek!",
+   "createdAt": "2026-10-12",
+   "verified": true,
+   "published": true
+  },
+  {
+   "id": "r2",
+   "authorName": "Sanyi",
+   "location": "Nyíregyháza",
+   "occasionId": "szuletesnap",
+   "artistId": "art_tuzrozsa_duo",
+   "rating": 5,
+   "text": "A feleségem 40. szülinapjára rendeltem. Benne volt a balatoni nyaralásunk és a kutyánk neve is. Ennél jobb ajándékot nem adhattam volna.",
+   "createdAt": "2026-10-03",
+   "verified": true,
+   "published": true
+  },
+  {
+   "id": "r3",
+   "authorName": "Erika",
+   "location": "Kecskemét",
+   "occasionId": "keresztelo",
+   "artistId": "art_rubin_szilvi",
+   "rating": 5,
+   "text": "A keresztlányomnak készült, a nagymama azóta is ezt hallgatja a konyhában. Gyorsan elkészült, és a kiejtés is tökéletes lett.",
+   "createdAt": "2026-09-21",
+   "verified": true,
+   "published": true
+  },
+  {
+   "id": "r4",
+   "authorName": "Tomi és a komák",
+   "location": "Debrecen",
+   "occasionId": "haveroknak",
+   "artistId": "art_neon_gabi",
+   "rating": 5,
+   "text": "A haverom legénybúcsújára leptük meg vele. Kétszer kértünk javítást egy poén miatt, mindkettő ingyen volt és pár óra alatt kész lett.",
+   "createdAt": "2026-09-14",
+   "verified": true,
+   "published": true
+  },
+  {
+   "id": "r5",
+   "authorName": "Marika",
+   "location": "Szeged",
+   "occasionId": "hazassagi-evfordulo",
+   "artistId": "art_rubin_szilvi",
+   "rating": 5,
+   "text": "Harminc év házasság után azt hittem, engem már semmi nem lep meg. Tévedtem.",
+   "createdAt": "2026-08-30",
+   "verified": true,
+   "published": true
+  },
+  {
+   "id": "r6",
+   "authorName": "Dávid",
+   "location": "Győr",
+   "occasionId": "hazateres",
+   "artistId": "art_ezustvono",
+   "rating": 4,
+   "text": "Az öcsém hazajött Németországból, a reptéren a kocsiban szólt a dala. Kicsit lassabb tempót kértem volna, de a javítás után pont jó lett.",
+   "createdAt": "2026-08-18",
+   "verified": true,
+   "published": true
+  }
+ ],
+ "packages": [
+  {
+   "id": "raeros",
+   "name": "Ráérős",
+   "deliveryLabel": "5–7 nap",
+   "deliveryHours": 168,
+   "priceHuf": 12900,
+   "description": "Ha van még idő a nagy napig. Ugyanaz a minőség, kedvezőbb áron.",
+   "highlight": false,
+   "sortOrder": 1,
+   "active": true
+  },
+  {
+   "id": "holnapra",
+   "name": "Holnapra",
+   "deliveryLabel": "24 órán belül",
+   "deliveryHours": 24,
+   "priceHuf": 16900,
+   "description": "A legnépszerűbb: holnapra a postaládádban a saját nótád.",
+   "highlight": true,
+   "sortOrder": 2,
+   "active": true
+  },
+  {
+   "id": "meg-ma",
+   "name": "Még ma",
+   "deliveryLabel": "1–3 órán belül",
+   "deliveryHours": 3,
+   "priceHuf": 22900,
+   "description": "Ma este lagzi? Elsőbbséggel készítjük, akár pár órán belül.",
+   "highlight": false,
+   "sortOrder": 3,
+   "active": true
+  }
+ ],
+ "extras": [
+  {
+   "id": "videoklip",
+   "name": "Videoklip a fotóidból",
+   "description": "A feltöltött képekből zenés klip, dalszöveg-feliratozással – kivetítőre is.",
+   "priceHuf": 7900,
+   "kind": "addon",
+   "sortOrder": 1,
+   "active": true
+  },
+  {
+   "id": "pdf",
+   "name": "Dalszöveg díszkeretben (PDF)",
+   "description": "Nyomtatható, ünnepi kivitelű dalszöveg – bekeretezve örök emlék.",
+   "priceHuf": 2490,
+   "kind": "addon",
+   "sortOrder": 2,
+   "active": true
+  },
+  {
+   "id": "plusz-versszak",
+   "name": "Plusz versszak",
+   "description": "Még több történet, még több név, még hosszabb mulatás.",
+   "priceHuf": 3900,
+   "kind": "addon",
+   "sortOrder": 3,
+   "active": true
+  },
+  {
+   "id": "karaoke",
+   "name": "Instrumentális (karaoke) verzió",
+   "description": "Ének nélküli változat, hogy a násznép is elénekelhesse.",
+   "priceHuf": 2990,
+   "kind": "addon",
+   "sortOrder": 4,
+   "active": true
+  },
+  {
+   "id": "elo-eloadas",
+   "name": "Élő előadás a lagziban – érdeklődés",
+   "description": "Továbbítjuk az érdeklődésedet az előadó menedzsmentjének. Ingyenes, nem kötelez semmire.",
+   "priceHuf": 0,
+   "kind": "lead",
+   "sortOrder": 5,
+   "active": true
+  }
+ ],
+ "coupons": [
+  {
+   "code": "LAGZI10",
+   "percentOff": 10,
+   "active": true
+  },
+  {
+   "code": "KOMA2000",
+   "amountOffHuf": 2000,
+   "active": true
+  }
+ ],
+ "faqs": [
+  {
+   "id": "f1",
+   "question": "Hogyan működik a „fizetés csak ha kész”?",
+   "answer": "Rendeléskor a bankkártyádat csak rögzítjük (zárolás / setup intent) – ekkor még nem vonunk le semmit. A terhelés akkor történik meg, amikor a dalod elkészült és elküldtük neked. Ha bármiért nem tudjuk elkészíteni, a zárolást feloldjuk.",
+   "sortOrder": 1
+  },
+  {
+   "id": "f2",
+   "question": "Kik énekelnek a dalokban? Lesznek hírességek is?",
+   "answer": "A dalokat a Húzdrá! saját hangjai éneklik – mindegyik saját stílussal, a lakodalmas mulatóstól a roma balladáig. A dalok mesterséges intelligencia segítségével készülnek. Hamarosan ismert előadók hivatalos, licencelt hangja is választható lesz – iratkozz fel az előadó kártyáján, és szólunk, amint elérhető.",
+   "sortOrder": 2
+  },
+  {
+   "id": "f3",
+   "question": "Mennyi idő alatt készül el a dal?",
+   "answer": "A választott csomagtól függ: „Még ma” – 1–3 órán belül, „Holnapra” – 24 órán belül, „Ráérős” – 5–7 napon belül. Ha egy dalt munkatársunknak át kell néznie, azt is ezen belül intézzük.",
+   "sortOrder": 3
+  },
+  {
+   "id": "f4",
+   "question": "Hányszor kérhetek javítást?",
+   "answer": "Minden dalhoz 2 ingyenes javítási kör jár: a dal-oldalon egy gombbal kérheted, és leírhatod, mit szeretnél másképp (pl. egy név, egy poén, a tempó). Ha így sem vagy elégedett, az elégedettségi garancia keretében visszaadjuk az árát.",
+   "sortOrder": 4
+  },
+  {
+   "id": "f5",
+   "question": "Lejátszható a lagziban, a DJ-nél vagy az autóban?",
+   "answer": "Persze! MP3-ban töltheted le, ami minden telefonon, laptopon, DJ-pulton és autórádión megy. A dal-oldal linkjét pedig egyszerűen elküldheted a DJ-nek vagy a családi csoportba.",
+   "sortOrder": 5
+  },
+  {
+   "id": "f6",
+   "question": "Mi van, ha a név kiejtése nem jó?",
+   "answer": "A rendelésnél megadhatod, hogyan kell kimondani a nevet (pl. „Zsófi – ZSÓ-fi, hosszú ó”). Ha mégsem lenne tökéletes, ez az első, amit ingyen javítunk.",
+   "sortOrder": 6
+  },
+  {
+   "id": "f7",
+   "question": "Megrendelhetem élőben is az előadót?",
+   "answer": "A rendelés utolsó lépésénél bejelölheted az „Élő előadás a lagziban” érdeklődést. Ezt közvetlenül továbbítjuk az előadó menedzsmentjének, akik felveszik veled a kapcsolatot. Ez ingyenes és nem kötelez semmire.",
+   "sortOrder": 7
+  },
+  {
+   "id": "f8",
+   "question": "Mit nem tartalmazhat a dal?",
+   "answer": "Gyűlöletkeltő, rasszista vagy lejárató tartalmat, szexuálisan explicit szöveget, valós harmadik személyek kigúnyolását, politikai üzenetet vagy reklámot. A történeteket és a kész szövegeket szűrjük, és kétes esetben munkatársunk nézi át. A dal személyes, nem kereskedelmi felhasználásra készül.",
+   "sortOrder": 8
+  }
+ ],
+ "drafts": [],
+ "orders": [
+  {
+   "id": "ord_dXrK_OyPuxKc",
+   "code": "HZ-N2RD27",
+   "statusKey": "Qeo1f3s87h0vzydW",
+   "songToken": "25AGUyNDK1ddqhix_i0CQ7ur",
+   "status": "delivered",
+   "data": {
+    "artistId": "art_tuzrozsa_duo",
+    "occasionId": "lakodalom",
+    "occasionOther": "",
+    "tempo": "porgos",
+    "mood": "vicces",
+    "styleId": "",
+    "violin": true,
+    "cimbalom": false,
+    "recipientName": "Kovács Zsófia",
+    "nickname": "",
+    "pronunciation": "",
+    "relation": "menyasszony",
+    "relationOther": "",
+    "ageOrYears": "",
+    "memories": "A Balatonon ismerkedtek meg egy elázott fagyizós estén, azóta elválaszthatatlanok.",
+    "jokes": "",
+    "familyNames": "",
+    "favoriteSaying": "",
+    "town": "Szeged",
+    "avoid": "",
+    "packageId": "holnapra",
+    "extras": [],
+    "email": "zsofi.teszt@example.com",
+    "phone": "",
+    "billingName": "Teszt Elek",
+    "billingZip": "1111",
+    "billingCity": "Budapest",
+    "billingAddress": "Fő utca 1.",
+    "billingTaxNumber": "",
+    "coupon": "",
+    "liveEventDate": "",
+    "liveEventLocation": "",
+    "liveEventNote": "",
+    "consentTerms": true,
+    "consentPrivacy": true,
+    "consentMarketing": false
+   },
+   "price": {
+    "lines": [
+     {
+      "label": "Holnapra csomag",
+      "amountHuf": 16900
+     },
+     {
+      "label": "Tűzrózsa Duó – előadói felár",
+      "amountHuf": 2000
+     }
+    ],
+    "discountHuf": 0,
+    "totalHuf": 18900,
+    "couponApplied": null
+   },
+   "payment": {
+    "provider": "mock-payment",
+    "intentId": "pi_mock_19vzv511",
+    "state": "captured"
+   },
+   "moderation": {
+    "ok": true,
+    "flags": []
+   },
+   "lyrics": {
+    "title": "Kovács Zsófia, a buli lelke",
+    "text": "[1. versszak]\nSzóljon a zene, húzza a banda,\nKovács Zsófia ma örök hűséget fogad, ez az ő napja!\nSzeged minden utcája ma erről dalol,\na szívünk ma érte dobol.\n\n[Refrén]\nHej, Kovács Zsófia, Kovács Zsófia, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nKovács Zsófia kedvéért ma senki nem áll!\n\n[2. versszak]\nEmlékszel még? A Balatonon ismerkedtek meg egy elázott fagyizós estén, azóta…\nNevettünk mi annyit, hogy fájt a hasunk,\nItt van a család, mind veled ünnepel,\nés ez a dal most örökre veled lesz.\n\n[Refrén]\nHej, Kovács Zsófia, Kovács Zsófia, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nKovács Zsófia kedvéért ma senki nem áll!\n\n(Mock: a javítási kérést figyelembe vettük – „Névjavítás: „Kovács Zsófi” → „Kovács Zsófia”. Mindenhol a helyes nevet használd, helyes ragozással.”)",
+    "version": 2,
+    "generatedBy": "mock-lyrics"
+   },
+   "audio": {
+    "url": "/api/audio/song/25AGUyNDK1ddqhix_i0CQ7ur?v=201",
+    "storagePath": "ord_dXrK_OyPuxKc/v201.wav",
+    "watermarkId": "wm_ord_dXrK_OyPuxKc_201",
+    "generatedAt": "2026-11-07T20:34:13.078Z"
+   },
+   "revisionsUsed": 0,
+   "revisionNotes": [
+    "Névjavítás: „Kovács Zsófi” → „Kovács Zsófia”. Mindenhol a helyes nevet használd, helyes ragozással."
+   ],
+   "dueAt": "2026-11-08T20:34:08.644Z",
+   "createdAt": "2026-11-07T20:34:08.644Z",
+   "updatedAt": "2026-11-07T20:34:13.380Z",
+   "storyRetentionUntil": "2027-02-05T20:34:08.644Z",
+   "events": [
+    {
+     "at": "2026-11-07T20:34:08.644Z",
+     "status": "draft",
+     "actor": "customer"
+    },
+    {
+     "at": "2026-11-07T20:34:08.644Z",
+     "status": "paid_authorized",
+     "note": "Kártya rögzítve (pi_mock_19vzv511), terhelés a kézbesítéskor",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:08.949Z",
+     "status": "lyrics_ready",
+     "note": "Dalszöveg v1",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:09.250Z",
+     "status": "audio_generating",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:09.552Z",
+     "status": "audio_generating",
+     "note": "Felvétel beküldve (mock-audio)",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:10.233Z",
+     "status": "qc",
+     "note": "Felvétel kész, minőségellenőrzés",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:10.535Z",
+     "status": "delivered",
+     "note": "Automatikus QC rendben, terhelés megtörtént",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:11.503Z",
+     "status": "revision_requested",
+     "note": "Névjavítás: „Kovács Zsófi” → „Kovács Zsófia”",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:11.804Z",
+     "status": "lyrics_ready",
+     "note": "Dalszöveg v2",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:12.106Z",
+     "status": "audio_generating",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:12.407Z",
+     "status": "audio_generating",
+     "note": "Felvétel beküldve (mock-audio)",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:13.078Z",
+     "status": "qc",
+     "note": "Felvétel kész, minőségellenőrzés",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:13.380Z",
+     "status": "delivered",
+     "note": "Automatikus QC rendben",
+     "actor": "system"
+    }
+   ],
+   "previewId": null,
+   "nameCorrections": 1,
+   "notes": [],
+   "failures": 0,
+   "attention": null,
+   "regenMode": null,
+   "audioJob": null,
+   "version": 1,
+   "deliveredAt": "2026-11-07T20:34:13.380Z"
+  },
+  {
+   "id": "ord_f8w7js3H6Dr1",
+   "code": "HZ-T9ANWC",
+   "statusKey": "LOqEz_g-VDfUid5U",
+   "songToken": "h3cYnI_V_bunJ7TalmqOiR6M",
+   "status": "delivered",
+   "data": {
+    "artistId": "art_barsony_dani",
+    "occasionId": "szuletesnap",
+    "occasionOther": "",
+    "tempo": "porgos",
+    "mood": "vicces",
+    "styleId": "",
+    "violin": true,
+    "cimbalom": false,
+    "recipientName": "Laci",
+    "nickname": "",
+    "pronunciation": "",
+    "relation": "barát",
+    "relationOther": "",
+    "ageOrYears": "",
+    "memories": "Laci ötven éves lett, de még mindig ő táncol a leghosszabban minden lagziban, hajnalig.",
+    "jokes": "",
+    "familyNames": "",
+    "favoriteSaying": "",
+    "town": "Szeged",
+    "avoid": "",
+    "packageId": "holnapra",
+    "extras": [],
+    "email": "laci@example.com",
+    "phone": "",
+    "billingName": "Teszt Elek",
+    "billingZip": "1111",
+    "billingCity": "Budapest",
+    "billingAddress": "Fő utca 1.",
+    "billingTaxNumber": "",
+    "coupon": "",
+    "liveEventDate": "",
+    "liveEventLocation": "",
+    "liveEventNote": "",
+    "consentTerms": true,
+    "consentPrivacy": true,
+    "consentMarketing": false
+   },
+   "price": {
+    "lines": [
+     {
+      "label": "Holnapra csomag",
+      "amountHuf": 16900
+     }
+    ],
+    "discountHuf": 0,
+    "totalHuf": 16900,
+    "couponApplied": null
+   },
+   "payment": {
+    "provider": "mock-payment",
+    "intentId": "pi_mock_y6rp95ki",
+    "state": "captured"
+   },
+   "moderation": {
+    "ok": true,
+    "flags": []
+   },
+   "lyrics": {
+    "title": "Laci, a buli lelke",
+    "text": "[1. versszak]\nSzóljon a zene, húzza a banda,\nLaci ma újra egy évvel szebb, ez az ő napja!\nSzeged minden utcája ma erről dalol,\na szívünk ma érte dobol.\n\n[Refrén]\nHej, Laci, Laci, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nLaci kedvéért ma senki nem áll!\n\n[2. versszak]\nEmlékszel még? Laci ötven éves lett, de még mindig ő táncol a leghosszabban minden…\nNevettünk mi annyit, hogy fájt a hasunk,\nItt van a család, mind veled ünnepel,\nés ez a dal most örökre veled lesz.\n\n[Refrén]\nHej, Laci, Laci, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nLaci kedvéért ma senki nem áll!",
+    "version": 2,
+    "generatedBy": "mock-lyrics"
+   },
+   "audio": {
+    "url": "/api/audio/song/h3cYnI_V_bunJ7TalmqOiR6M?v=200",
+    "storagePath": "ord_f8w7js3H6Dr1/v200.wav",
+    "watermarkId": "wm_ord_f8w7js3H6Dr1_200",
+    "generatedAt": "2026-11-07T20:34:16.778Z"
+   },
+   "revisionsUsed": 0,
+   "revisionNotes": [],
+   "dueAt": "2026-11-08T20:34:15.217Z",
+   "createdAt": "2026-11-07T20:34:15.217Z",
+   "updatedAt": "2026-11-07T20:34:17.079Z",
+   "storyRetentionUntil": "2027-02-05T20:34:15.217Z",
+   "events": [
+    {
+     "at": "2026-11-07T20:34:15.217Z",
+     "status": "draft",
+     "actor": "customer"
+    },
+    {
+     "at": "2026-11-07T20:34:15.218Z",
+     "status": "paid_authorized",
+     "note": "Kártya rögzítve (pi_mock_y6rp95ki), terhelés a kézbesítéskor · előnézetből",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:15.521Z",
+     "status": "lyrics_ready",
+     "note": "Dalszöveg v2",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:15.823Z",
+     "status": "audio_generating",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:16.125Z",
+     "status": "audio_generating",
+     "note": "Felvétel beküldve (mock-audio)",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:16.778Z",
+     "status": "qc",
+     "note": "Felvétel kész, minőségellenőrzés",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:34:17.079Z",
+     "status": "delivered",
+     "note": "Automatikus QC rendben, terhelés megtörtént",
+     "actor": "system"
+    }
+   ],
+   "previewId": "prv_JUGOKT1cR3_j",
+   "nameCorrections": 0,
+   "notes": [],
+   "failures": 0,
+   "attention": null,
+   "regenMode": null,
+   "audioJob": null,
+   "version": 1,
+   "deliveredAt": "2026-11-07T20:34:17.079Z"
+  },
+  {
+   "id": "ord_-Ys1rtiEflS2",
+   "code": "HZ-95UK5S",
+   "statusKey": "GBkkSqISYLiXdSzs",
+   "songToken": "0Mg02ZiDmdokgra_iGQ9WwHl",
+   "status": "delivered",
+   "data": {
+    "artistId": "art_barsony_dani",
+    "occasionId": "szuletesnap",
+    "occasionOther": "",
+    "tempo": "porgos",
+    "mood": "vicces",
+    "styleId": "",
+    "violin": false,
+    "cimbalom": false,
+    "recipientName": "Nagy László",
+    "nickname": "",
+    "pronunciation": "",
+    "relation": "barát",
+    "relationOther": "",
+    "ageOrYears": "",
+    "memories": "Laci ötven éves lett, de még mindig ő táncol a leghosszabban minden lagziban, hajnalig.",
+    "jokes": "",
+    "familyNames": "",
+    "favoriteSaying": "",
+    "town": "",
+    "avoid": "",
+    "packageId": "holnapra",
+    "extras": [],
+    "email": "laci.e2e@example.com",
+    "phone": "",
+    "billingName": "Nagy Laci",
+    "billingZip": "4025",
+    "billingCity": "Debrecen",
+    "billingAddress": "Piac utca 1.",
+    "billingTaxNumber": "",
+    "coupon": "",
+    "liveEventDate": "",
+    "liveEventLocation": "",
+    "liveEventNote": "",
+    "consentTerms": true,
+    "consentPrivacy": true,
+    "consentMarketing": false
+   },
+   "price": {
+    "lines": [
+     {
+      "label": "Holnapra csomag",
+      "amountHuf": 16900
+     }
+    ],
+    "discountHuf": 0,
+    "totalHuf": 16900,
+    "couponApplied": null
+   },
+   "payment": {
+    "provider": "mock-payment",
+    "intentId": "pi_mock_qrx4q29v",
+    "state": "captured"
+   },
+   "moderation": {
+    "ok": true,
+    "flags": []
+   },
+   "lyrics": {
+    "title": "Nagy László, a buli lelke",
+    "text": "[1. versszak]\nSzóljon a zene, húzza a banda,\nNagy László ma újra egy évvel szebb, ez az ő napja!\nAz egész falu ma erről dalol,\na szívünk ma érte dobol.\n\n[Refrén]\nHej, Nagy László, Nagy László, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nNagy László kedvéért ma senki nem áll!\n\n[2. versszak]\nEmlékszel még? Laci ötven éves lett, de még mindig ő táncol a leghosszabban minden…\nNevettünk mi annyit, hogy fájt a hasunk,\nItt van a család, mind veled ünnepel,\nés ez a dal most örökre veled lesz.\n\n[Refrén]\nHej, Nagy László, Nagy László, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nNagy László kedvéért ma senki nem áll!\n\n(Mock: a javítási kérést figyelembe vettük – „Névjavítás: „Nagy Laci” → „Nagy László”. Mindenhol a helyes nevet használd, helyes ragozással.”)",
+    "version": 3,
+    "generatedBy": "mock-lyrics"
+   },
+   "audio": {
+    "url": "/api/audio/song/0Mg02ZiDmdokgra_iGQ9WwHl?v=301",
+    "storagePath": "ord_-Ys1rtiEflS2/v301.wav",
+    "watermarkId": "wm_ord_-Ys1rtiEflS2_301",
+    "generatedAt": "2026-11-07T20:35:19.087Z"
+   },
+   "revisionsUsed": 0,
+   "revisionNotes": [
+    "Névjavítás: „Nagy Laci” → „Nagy László”. Mindenhol a helyes nevet használd, helyes ragozással."
+   ],
+   "dueAt": "2026-11-08T20:35:11.702Z",
+   "createdAt": "2026-11-07T20:35:11.702Z",
+   "updatedAt": "2026-11-07T20:35:19.389Z",
+   "storyRetentionUntil": "2027-02-05T20:35:11.702Z",
+   "events": [
+    {
+     "at": "2026-11-07T20:35:11.702Z",
+     "status": "draft",
+     "actor": "customer"
+    },
+    {
+     "at": "2026-11-07T20:35:11.702Z",
+     "status": "paid_authorized",
+     "note": "Kártya rögzítve (pi_mock_qrx4q29v), terhelés a kézbesítéskor · előnézetből",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:12.007Z",
+     "status": "lyrics_ready",
+     "note": "Dalszöveg v2",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:12.311Z",
+     "status": "audio_generating",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:12.612Z",
+     "status": "audio_generating",
+     "note": "Felvétel beküldve (mock-audio)",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:13.275Z",
+     "status": "qc",
+     "note": "Felvétel kész, minőségellenőrzés",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:13.578Z",
+     "status": "delivered",
+     "note": "Automatikus QC rendben, terhelés megtörtént",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:17.516Z",
+     "status": "revision_requested",
+     "note": "Névjavítás: „Nagy Laci” → „Nagy László”",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:17.819Z",
+     "status": "lyrics_ready",
+     "note": "Dalszöveg v3",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:18.121Z",
+     "status": "audio_generating",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:18.424Z",
+     "status": "audio_generating",
+     "note": "Felvétel beküldve (mock-audio)",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:19.087Z",
+     "status": "qc",
+     "note": "Felvétel kész, minőségellenőrzés",
+     "actor": "system"
+    },
+    {
+     "at": "2026-11-07T20:35:19.389Z",
+     "status": "delivered",
+     "note": "Automatikus QC rendben",
+     "actor": "system"
+    }
+   ],
+   "previewId": "prv_Xr9OFEFaXE3r",
+   "nameCorrections": 1,
+   "notes": [],
+   "failures": 0,
+   "attention": null,
+   "regenMode": null,
+   "audioJob": null,
+   "version": 1,
+   "deliveredAt": "2026-11-07T20:35:19.389Z"
+  }
+ ],
+ "leads": [],
+ "outbox": [
+  {
+   "id": "b9bjzl4l",
+   "to": "zsofi.teszt@example.com",
+   "subject": "Megkaptuk! Kovács Zsófi dala hamarosan készül (HZ-N2RD27)",
+   "html": "<!doctype html><html lang=\"hu\"><body style=\"margin:0;background:#1a0812;font-family:Arial,sans-serif;color:#fbf3e6\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td align=\"center\" style=\"p",
+   "createdAt": "2026-11-07T20:34:08.646Z"
+  },
+  {
+   "id": "egrOPjfI",
+   "to": "zsofi.teszt@example.com",
+   "subject": "Kész a dal! Kovács Zsófi nótája megérkezett 🎻",
+   "html": "<!doctype html><html lang=\"hu\"><body style=\"margin:0;background:#1a0812;font-family:Arial,sans-serif;color:#fbf3e6\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td align=\"center\" style=\"p",
+   "createdAt": "2026-11-07T20:34:10.536Z"
+  },
+  {
+   "id": "CUP2DfN7",
+   "to": "zsofi.teszt@example.com",
+   "subject": "Re: Üzenet a weboldalról",
+   "html": "<!doctype html><html lang=\"hu\"><body style=\"margin:0;background:#1a0812;font-family:Arial,sans-serif;color:#fbf3e6\">\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td align=\"center\" style=\"p",
+   "createdAt": "2026-11-07T20:34:11.504Z"
+  }
+ ],
+ "waitlist": [],
+ "settings": {
+  "autoQc": true,
+  "autoSupport": true,
+  "supportConfidence": 0.8,
+  "autoArtistApproval": true,
+  "freeNameFixes": true,
+  "previewEnabled": true,
+  "previewSeconds": 15,
+  "previewHourlyLimit": 5,
+  "happyFamiliesBaseline": 1240
+ },
+ "tickets": [
+  {
+   "id": "tkt_DY9PmZ_0KVU",
+   "createdAt": "2026-11-07T20:34:11.498Z",
+   "updatedAt": "2026-11-07T20:34:11.505Z",
+   "channel": "song_page",
+   "fromEmail": "zsofi.teszt@example.com",
+   "subject": "Üzenet a weboldalról",
+   "message": "Sziasztok! Rossz névre rendeltem, nem Zsófi hanem Zsófia a helyes.",
+   "orderId": "ord_dXrK_OyPuxKc",
+   "orderCode": "HZ-N2RD27",
+   "verified": true,
+   "intent": "name_fix",
+   "confidence": 0.92,
+   "extracted": {
+    "newName": "Zsófia",
+    "oldName": "Zsófi"
+   },
+   "status": "auto_resolved",
+   "actions": [
+    {
+     "at": "2026-11-07T20:34:11.504Z",
+     "type": "name_fixed",
+     "detail": "„Kovács Zsófi” → „Kovács Zsófia”, újragenerálás elindítva",
+     "actor": "system"
+    }
+   ],
+   "replies": [
+    {
+     "at": "2026-11-07T20:34:11.498Z",
+     "from": "customer",
+     "text": "Sziasztok! Rossz névre rendeltem, nem Zsófi hanem Zsófia a helyes."
+    },
+    {
+     "at": "2026-11-07T20:34:11.505Z",
+     "from": "system",
+     "text": "Kijavítottuk: a dalban mostantól „Kovács Zsófia” szerepel (korábban: „Kovács Zsófi”).\n\nA névjavítás ingyenes, nem számít bele a javítási körökbe.\n\nAz új változatot e-mailben küldjük, amint elkészül – általában pár percen belül."
+    }
+   ],
+   "agent": "rules-support-v1"
+  },
+  {
+   "id": "tkt_EaE3se0zeZY",
+   "createdAt": "2026-11-07T20:34:13.794Z",
+   "updatedAt": "2026-11-07T20:34:13.802Z",
+   "channel": "contact_form",
+   "fromEmail": "zsofi.teszt@example.com",
+   "subject": "Üzenet a weboldalról",
+   "message": "Mikor lesz kész a dal? HZ-N2RD27",
+   "orderId": "ord_dXrK_OyPuxKc",
+   "orderCode": "HZ-N2RD27",
+   "verified": true,
+   "intent": "status",
+   "confidence": 0.85,
+   "extracted": {
+    "orderCode": "HZ-N2RD27"
+   },
+   "status": "auto_resolved",
+   "actions": [
+    {
+     "at": "2026-11-07T20:34:13.801Z",
+     "type": "status_reply",
+     "detail": "Kézbesítve",
+     "actor": "system"
+    }
+   ],
+   "replies": [
+    {
+     "at": "2026-11-07T20:34:13.794Z",
+     "from": "customer",
+     "text": "Mikor lesz kész a dal? HZ-N2RD27"
+    },
+    {
+     "at": "2026-11-07T20:34:13.802Z",
+     "from": "system",
+     "text": "Jó hír: Kovács Zsófia dala már elkészült! Itt meghallgathatod és letöltheted:"
+    }
+   ],
+   "agent": "rules-support-v1"
+  },
+  {
+   "id": "tkt_DP6DtCq3ylw",
+   "createdAt": "2026-11-07T20:34:13.808Z",
+   "updatedAt": "2026-11-07T20:34:13.811Z",
+   "channel": "contact_form",
+   "fromEmail": "idegen@example.com",
+   "subject": "Üzenet a weboldalról",
+   "message": "HZ-N2RD27 – nem Zsófia hanem Kata a név",
+   "orderId": "ord_dXrK_OyPuxKc",
+   "orderCode": "HZ-N2RD27",
+   "verified": false,
+   "intent": "name_fix",
+   "confidence": 0.92,
+   "extracted": {
+    "orderCode": "HZ-N2RD27",
+    "newName": "Kata",
+    "oldName": "Zsófia"
+   },
+   "status": "needs_human",
+   "actions": [
+    {
+     "at": "2026-11-07T20:34:13.810Z",
+     "type": "unverified",
+     "detail": "A küldő nem a rendelő e-mail-címéről írt – kézi ellenőrzés",
+     "actor": "system"
+    }
+   ],
+   "replies": [
+    {
+     "at": "2026-11-07T20:34:13.808Z",
+     "from": "customer",
+     "text": "HZ-N2RD27 – nem Zsófia hanem Kata a név"
+    },
+    {
+     "at": "2026-11-07T20:34:13.811Z",
+     "from": "system",
+     "text": "Köszönjük! Biztonsági okból a módosítást a rendeléskor megadott e-mail-címről kérjük, vagy kollégánk hamarosan felveszi veled a kapcsolatot."
+    }
+   ],
+   "agent": "rules-support-v1"
+  },
+  {
+   "id": "tkt_K4Jmd3mRuUY",
+   "createdAt": "2026-11-07T20:35:17.510Z",
+   "updatedAt": "2026-11-07T20:35:17.519Z",
+   "channel": "email",
+   "fromEmail": "laci.e2e@example.com",
+   "subject": "Teszt",
+   "message": "Szia! Laci helyett László legyen a dalban, köszi!",
+   "orderId": "ord_-Ys1rtiEflS2",
+   "orderCode": "HZ-95UK5S",
+   "verified": true,
+   "intent": "name_fix",
+   "confidence": 0.92,
+   "extracted": {
+    "newName": "László",
+    "oldName": "Laci"
+   },
+   "status": "auto_resolved",
+   "actions": [
+    {
+     "at": "2026-11-07T20:35:17.517Z",
+     "type": "name_fixed",
+     "detail": "„Nagy Laci” → „Nagy László”, újragenerálás elindítva",
+     "actor": "system"
+    }
+   ],
+   "replies": [
+    {
+     "at": "2026-11-07T20:35:17.510Z",
+     "from": "customer",
+     "text": "Szia! Laci helyett László legyen a dalban, köszi!"
+    },
+    {
+     "at": "2026-11-07T20:35:17.519Z",
+     "from": "system",
+     "text": "Kijavítottuk: a dalban mostantól „Nagy László” szerepel (korábban: „Nagy Laci”).\n\nA névjavítás ingyenes, nem számít bele a javítási körökbe.\n\nAz új változatot e-mailben küldjük, amint elkészül – általában pár percen belül."
+    }
+   ],
+   "agent": "rules-support-v1"
+  }
+ ],
+ "trainingSamples": [
+  {
+   "id": "ts_26ec97893825",
+   "title": "b33e3658-alapzene1",
+   "storagePath": "2026-11/49bd2d2d3982-b33e3658-alapzene1.mp3",
+   "fileName": "b33e3658-alapzene1.mp3",
+   "mimeType": "audio/mpeg",
+   "sizeBytes": 481208,
+   "durationSec": 30,
+   "bpm": 123,
+   "musicalKey": "D-dúr?",
+   "styleIds": [],
+   "occasionIds": [],
+   "instruments": [],
+   "mood": "",
+   "notes": "",
+   "rightsConfirmed": true,
+   "rightsNote": "",
+   "status": "uploaded",
+   "uploadedAt": "2026-11-07T20:35:25.886Z",
+   "uploadedBy": "admin@huzdra.hu"
+  }
+ ],
+ "trainingJobs": [
+  {
+   "id": "trn_nFyyqOx3Ql4",
+   "name": "Lakodalmas v1",
+   "sampleIds": [
+    "ts_26ec97893825"
+   ],
+   "styleIds": [],
+   "provider": "mock-training",
+   "providerJobId": "mocktrain_1794083726133_1",
+   "status": "succeeded",
+   "progress": 100,
+   "modelId": "stylemodel_83726133_1",
+   "error": null,
+   "active": false,
+   "createdAt": "2026-11-07T20:35:26.132Z",
+   "updatedAt": "2026-11-07T20:35:35.156Z"
+  }
+ ],
+ "previews": [
+  {
+   "id": "prv_JUGOKT1cR3_j",
+   "token": "GHiw6d1FbkY9XYCP",
+   "createdAt": "2026-11-07T20:34:13.854Z",
+   "status": "ready",
+   "data": {
+    "artistId": "art_barsony_dani",
+    "occasionId": "szuletesnap",
+    "occasionOther": "",
+    "tempo": "porgos",
+    "mood": "vicces",
+    "styleId": "",
+    "violin": false,
+    "cimbalom": false,
+    "recipientName": "Laci",
+    "nickname": "",
+    "pronunciation": "",
+    "relation": "barát",
+    "relationOther": "",
+    "ageOrYears": "",
+    "memories": "Laci ötven éves lett, de még mindig ő táncol a leghosszabban minden lagziban, hajnalig.",
+    "jokes": "",
+    "familyNames": "",
+    "favoriteSaying": "",
+    "town": "",
+    "avoid": "",
+    "packageId": "",
+    "extras": [],
+    "email": "",
+    "phone": "",
+    "billingName": "",
+    "billingZip": "",
+    "billingCity": "",
+    "billingAddress": "",
+    "billingTaxNumber": "",
+    "coupon": "",
+    "liveEventDate": "",
+    "liveEventLocation": "",
+    "liveEventNote": "",
+    "consentTerms": false,
+    "consentPrivacy": false,
+    "consentMarketing": false
+   },
+   "lyrics": {
+    "title": "Laci, a buli lelke",
+    "text": "[1. versszak]\nSzóljon a zene, húzza a banda,\nLaci ma újra egy évvel szebb, ez az ő napja!\nAz egész falu ma erről dalol,\na szívünk ma érte dobol.\n\n[Refrén]\nHej, Laci, Laci, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nLaci kedvéért ma senki nem áll!",
+    "version": 1,
+    "generatedBy": "mock-lyrics"
+   },
+   "audioUrl": "prv_JUGOKT1cR3_j.wav",
+   "moderation": {
+    "ok": true,
+    "flags": []
+   },
+   "ipHash": "3a57c5b0251883679ae30ca9592417db",
+   "orderId": "ord_f8w7js3H6Dr1",
+   "audioJob": null,
+   "error": null
+  },
+  {
+   "id": "prv_Xr9OFEFaXE3r",
+   "token": "FP4T0KcY5Y4ctkhC",
+   "createdAt": "2026-11-07T20:35:04.412Z",
+   "status": "ready",
+   "data": {
+    "artistId": "art_barsony_dani",
+    "occasionId": "szuletesnap",
+    "occasionOther": "",
+    "tempo": "porgos",
+    "mood": "vicces",
+    "styleId": "",
+    "violin": false,
+    "cimbalom": false,
+    "recipientName": "Nagy Laci",
+    "nickname": "",
+    "pronunciation": "",
+    "relation": "barát",
+    "relationOther": "",
+    "ageOrYears": "",
+    "memories": "Laci ötven éves lett, de még mindig ő táncol a leghosszabban minden lagziban, hajnalig.",
+    "jokes": "",
+    "familyNames": "",
+    "favoriteSaying": "",
+    "town": "",
+    "avoid": "",
+    "packageId": "",
+    "extras": [],
+    "email": "",
+    "phone": "",
+    "billingName": "",
+    "billingZip": "",
+    "billingCity": "",
+    "billingAddress": "",
+    "billingTaxNumber": "",
+    "coupon": "",
+    "liveEventDate": "",
+    "liveEventLocation": "",
+    "liveEventNote": "",
+    "consentTerms": false,
+    "consentPrivacy": false,
+    "consentMarketing": false
+   },
+   "lyrics": {
+    "title": "Nagy Laci, a buli lelke",
+    "text": "[1. versszak]\nSzóljon a zene, húzza a banda,\nNagy Laci ma újra egy évvel szebb, ez az ő napja!\nAz egész falu ma erről dalol,\na szívünk ma érte dobol.\n\n[Refrén]\nHej, Nagy Laci, Nagy Laci, te vagy a buli lelke,\nnélküled a mulatság csak egy csendes hétfő este!\nEmeld a poharad, táncoljon a ház,\nNagy Laci kedvéért ma senki nem áll!",
+    "version": 1,
+    "generatedBy": "mock-lyrics"
+   },
+   "audioUrl": "prv_Xr9OFEFaXE3r.wav",
+   "moderation": {
+    "ok": true,
+    "flags": []
+   },
+   "ipHash": "3a57c5b0251883679ae30ca9592417db",
+   "orderId": "ord_-Ys1rtiEflS2",
+   "audioJob": null,
+   "error": null
+  }
+ ]
+}

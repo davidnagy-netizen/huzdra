@@ -20,6 +20,11 @@
   --glow-1: rgba(192, 53, 44, 0.16);
   --glow-2: rgba(27, 42, 92, 0.14);
   --glow-3: rgba(217, 166, 60, 0.22);
+  /* grafikon-jel (validált: L-sáv, kontraszt a felülethez) */
+  --chart-1: #a8760f;
+  --good: #1f7a4a;
+  --warn: #9a6200;
+  --crit: #b4271f;
   color-scheme: light;
 }
 
@@ -40,6 +45,10 @@
   --glow-1: rgba(239, 90, 76, 0.22);
   --glow-2: rgba(40, 70, 190, 0.28);
   --glow-3: rgba(240, 195, 94, 0.18);
+  --chart-1: #b8862a;
+  --good: #5cc78c;
+  --warn: #f0b44a;
+  --crit: #ff7a6e;
   color-scheme: dark;
 }
 
@@ -57,6 +66,10 @@
   --color-wine: var(--wine);
   --color-navy: var(--navy);
   --color-on-gold: var(--on-gold);
+  --color-chart-1: var(--chart-1);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-crit: var(--crit);
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), Georgia, serif;
   --font-script: var(--font-script), cursive;

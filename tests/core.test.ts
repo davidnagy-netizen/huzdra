@@ -32,7 +32,7 @@ test("állapotgép: érvényes és érvénytelen átmenetek", () => {
   assert.ok(canTransition("paid_authorized", "lyrics_ready"));
   assert.ok(canTransition("awaiting_artist_approval", "lyrics_ready"));
   assert.ok(!canTransition("draft", "delivered"));
-  assert.ok(!canTransition("done", "revision_requested"));
+  assert.ok(!canTransition("cancelled", "revision_requested"));
   const o = { status: "delivered", events: [] } as unknown as Order;
   assert.equal(transition(o, "revision_requested").events.length, 1);
   assert.throws(() => transition(o, "qc"), InvalidTransitionError);

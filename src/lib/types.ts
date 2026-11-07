@@ -257,10 +257,10 @@ export interface Order {
   status: OrderStatus;
   data: WizardData;
   price: PriceBreakdown;
-  payment: { provider: string; intentId: string; state: "authorized" | "captured" | "cancelled" };
+  payment: { provider: string; intentId: string; state: "authorized" | "captured" | "cancelled" | "refunded" };
   moderation: ModerationResult;
   lyrics: Lyrics | null;
-  audio: { url: string; watermarkId: string; generatedAt: string } | null;
+  audio: { url: string; storagePath?: string; watermarkId: string; generatedAt: string } | null;
   revisionsUsed: number;
   revisionNotes: string[];
   dueAt: string;
@@ -269,6 +269,25 @@ export interface Order {
   /** GDPR: a személyes történetet eddig az időpontig őrizzük */
   storyRetentionUntil: string;
   events: OrderEvent[];
+  /** Melyik előnézetből (one-pager) lett a rendelés – a szöveget újrahasznosítjuk */
+  previewId?: string | null;
+  /** Ingyenes névjavítások száma (nem számít bele a 2 javítási körbe) */
+  nameCorrections?: number;
+  /** Belső admin-jegyzetek */
+  notes?: { at: string; text: string; by: string }[];
+  deliveredAt?: string | null;
+  /** Optimista zároláshoz (Supabase) */
+  version?: number;
+  /** Folyamatban lévő hanggenerálás a zene-API-nál */
+  audioJob?: { jobId: string; submittedAt: string; attempts: number } | null;
+  /** Mit kell újragenerálni javításnál: szöveget és hangot, vagy csak a hangot (pl. kiejtés) */
+  regenMode?: "lyrics" | "audio" | null;
+  /** Ha nem nulla: emberi beavatkozás kell (megjelenik az admin "Figyelmet igényel" listájában) */
+  attention?: string | null;
+  /** Hibás próbálkozások száma az aktuális lépésnél (automatikus újrapróbálás) */
+  failures?: number;
+  /** Moderáció kézzel feloldva – a pipeline nem tartja vissza újra */
+  moderationReleased?: boolean;
 }
 
 export interface Lead {
@@ -298,3 +317,119 @@ export interface EmailMessage {
   html: string;
   createdAt: string;
 }
+
+// ---------------------------------------------------------------- automatizálás / admin
+
+export interface Settings {
+  /** Automatikus minőségellenőrzés: ha minden automatikus ellenőrzés zöld, a dal emberi QC nélkül kimegy */
+  autoQc: boolean;
+  /** Automatikus szupport: a felismert kéréseket (pl. névjavítás) a rendszer magától intézi */
+  autoSupport: boolean;
+  /** Ennyi magabiztosság felett cselekszik automatikusan a szupport-ágens (0–1) */
+  supportConfidence: number;
+  /** Mock: az előadói jóváhagyás automatikus (amíg nincs előadói portál) */
+  autoArtistApproval: boolean;
+  /** Névjavítás ingyen, nem fogy a javítási körökből */
+  freeNameFixes: boolean;
+  previewEnabled: boolean;
+  previewSeconds: number;
+  /** Előnézetek száma IP-címenként óránként */
+  previewHourlyLimit: number;
+  happyFamiliesBaseline: number;
+}
+
+export type SupportIntent =
+  | "name_fix"
+  | "pronunciation_fix"
+  | "content_change"
+  | "status"
+  | "refund"
+  | "cancel"
+  | "thanks"
+  | "other";
+
+export interface SupportExtracted {
+  newName?: string;
+  oldName?: string;
+  pronunciation?: string;
+  change?: string;
+  orderCode?: string;
+}
+
+export interface SupportTicket {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  channel: "email" | "song_page" | "contact_form";
+  fromEmail: string;
+  subject: string;
+  message: string;
+  orderId: string | null;
+  orderCode: string | null;
+  /** A küldő igazoltan a rendelő (egyező e-mail vagy tokenes dal-oldal) */
+  verified: boolean;
+  intent: SupportIntent | null;
+  confidence: number;
+  extracted: SupportExtracted;
+  status: "open" | "auto_resolved" | "needs_human" | "closed";
+  actions: { at: string; type: string; detail: string; actor: "system" | "admin" }[];
+  replies: { at: string; from: "customer" | "system" | "admin"; text: string }[];
+  agent: string;
+}
+
+export interface TrainingSample {
+  id: string;
+  title: string;
+  storagePath: string;
+  fileName: string;
+  mimeType: string;
+  sizeBytes: number;
+  durationSec: number | null;
+  bpm: number | null;
+  musicalKey: string | null;
+  styleIds: StyleId[];
+  occasionIds: OccasionId[];
+  instruments: string[];
+  mood: string;
+  notes: string;
+  /** A feltöltő megerősítette: saját vagy licencelt felvétel, tanításra felhasználható */
+  rightsConfirmed: boolean;
+  rightsNote: string;
+  status: "uploaded" | "in_training" | "archived";
+  uploadedAt: string;
+  uploadedBy: string;
+}
+
+export interface TrainingJob {
+  id: string;
+  name: string;
+  sampleIds: string[];
+  styleIds: StyleId[];
+  provider: string;
+  providerJobId: string | null;
+  status: "queued" | "running" | "succeeded" | "failed" | "cancelled";
+  progress: number;
+  modelId: string | null;
+  error: string | null;
+  /** Ez a modell generál az adott stílus(ok)ban */
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Preview {
+  id: string;
+  token: string;
+  createdAt: string;
+  status: "generating" | "ready" | "blocked" | "failed";
+  data: WizardData;
+  lyrics: Lyrics | null;
+  audioUrl: string | null;
+  moderation: ModerationResult;
+  ipHash: string;
+  orderId: string | null;
+  audioJob?: { jobId: string; submittedAt: string } | null;
+  error?: string | null;
+}
+
+export type CatalogEntity = "artists" | "packages" | "extras" | "coupons" | "reviews" | "samples" | "faqs";

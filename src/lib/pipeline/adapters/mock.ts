@@ -1,15 +1,22 @@
 // Mock adapterek fejlesztéshez/demóhoz. Valódi szolgáltatót nem hívnak.
 
+import { synthesizeWav } from "../../audio/synth";
 import { moderateFields } from "../../moderation";
+import { analyzeSupportMessage } from "../support-rules";
 import type {
+  AudioAdapter,
+  AudioJobRequest,
+  AudioJobStatus,
   EmailAdapter,
   LyricsAdapter,
   LyricsRequest,
   ModerationAdapter,
-  MusicAdapter,
   PaymentAdapter,
-  VoiceAdapter,
-  WatermarkAdapter,
+  SupportAgent,
+  SupportAnalysisInput,
+  TrainingAdapter,
+  TrainingRequest,
+  TrainingStatus,
 } from "./types";
 
 function rid(prefix: string) {
@@ -100,6 +107,10 @@ export class MockLyricsAdapter implements LyricsAdapter {
       ? `\n\n(Mock: a javítási kérést figyelembe vettük – „${req.revisionNotes.at(-1)}”)`
       : "";
 
+    if (req.short) {
+      const t = d.mood === "vicces" ? `${callName}, a buli lelke` : d.mood === "meghato" ? `Dal ${name} szívéhez` : `Éljen ${callName}!`;
+      return { title: t, text: `${v1Label}\n${verse1.join("\n")}\n\n${tag("Refrén")}\n${refrain.join("\n")}` };
+    }
     const text =
       `${v1Label}\n${verse1.join("\n")}\n\n${tag("Refrén")}\n${refrain.join("\n")}\n\n` +
       `${v2Label}\n${verse2.join("\n")}${extraVerse}\n\n${tag("Refrén")}\n${refrain.join("\n")}${revisionNote}`;
@@ -108,26 +119,60 @@ export class MockLyricsAdapter implements LyricsAdapter {
   }
 }
 
-export class MockMusicAdapter implements MusicAdapter {
-  readonly name = "mock-music";
-  async generateBacking() {
-    return { backingRef: rid("backing") };
-  }
-}
-
-export class MockVoiceAdapter implements VoiceAdapter {
-  readonly name = "mock-voice";
-  async sing(req: { voiceModelId: string }) {
+/**
+ * Mock felvétel: determinisztikus helykitöltő dallam (NEM valódi ének). Élesben a HttpAudioAdapter
+ * a zene-API-n keresztül a tanított stílusmodellel és a licencelt hangmodellel generál.
+ */
+export class MockAudioAdapter implements AudioAdapter {
+  readonly name = "mock-audio";
+  private jobs = new Map<string, AudioJobRequest>();
+  async submit(req: AudioJobRequest) {
     if (!req.voiceModelId) throw new Error("Hiányzó (licencelt) hangmodell-azonosító");
-    return { mixRef: rid("mix") };
+    const jobId = rid("aud");
+    this.jobs.set(jobId, req);
+    return { jobId };
+  }
+  async poll(jobId: string): Promise<AudioJobStatus> {
+    const req = this.jobs.get(jobId);
+    if (!req) return { status: "failed", error: "Ismeretlen feladat (a szerver újraindult?)" };
+    this.jobs.delete(jobId);
+    const wav = synthesizeWav({
+      seed: `${req.refId}:${req.lyrics.length}:${req.watermarkId}`,
+      tempo: req.tempo,
+      minor: req.mood === "meghato" || req.styleId === "roma-ballada",
+      lead: req.instruments.cimbalom ? "cimbalom" : req.styleId === "discos-mulatos" ? "synth" : "violin",
+      seconds: req.durationSec,
+      metadata: {
+        title: req.title,
+        artist: req.artistName,
+        comment: `Húzdrá! AI-dal (${req.kind}). Watermark: ${req.watermarkId}. Személyes, nem kereskedelmi felhasználásra.`,
+      },
+    });
+    return { status: "done", audio: new Uint8Array(wav), contentType: "audio/wav" };
   }
 }
 
-export class MockWatermarkAdapter implements WatermarkAdapter {
-  readonly name = "mock-watermark";
-  async apply(input: { orderId: string }) {
-    // A mock "vízjel": a generált WAV metaadataiba írjuk (lásd /api/audio/song/[token]).
-    return { url: "", watermarkId: `wm_${input.orderId}` };
+/** Mock tanítás: idővel halad, a végén "modell" azonosítót ad. */
+export class MockTrainingAdapter implements TrainingAdapter {
+  readonly name = "mock-training";
+  async start(req: TrainingRequest) {
+    if (!req.samples.length) throw new Error("Nincs kiválasztott zeneminta");
+    return { providerJobId: `mocktrain_${Date.now()}_${req.samples.length}` };
+  }
+  async status(providerJobId: string): Promise<TrainingStatus> {
+    const started = Number(providerJobId.split("_")[1] ?? Date.now());
+    const secs = (Date.now() - started) / 1000;
+    const total = Number(process.env.MOCK_TRAINING_SECONDS ?? 20);
+    if (secs >= total) return { status: "succeeded", progress: 100, modelId: `stylemodel_${providerJobId.slice(-10)}` };
+    return { status: secs < 2 ? "queued" : "running", progress: Math.min(99, Math.round((secs / total) * 100)) };
+  }
+}
+
+/** Szabályalapú szupport-ágens (magyar). Claude API kulcs esetén az AnthropicSupportAgent váltja. */
+export class RuleSupportAgent implements SupportAgent {
+  readonly name = "rules-support-v1";
+  async analyze(input: SupportAnalysisInput) {
+    return analyzeSupportMessage(input);
   }
 }
 
@@ -148,6 +193,9 @@ export class MockPaymentAdapter implements PaymentAdapter {
   }
   async cancel(intentId: string) {
     console.info(`[mock-payment] zárolás feloldva: ${intentId}`);
+  }
+  async refund(intentId: string, amountHuf: number) {
+    console.info(`[mock-payment] visszatérítés: ${intentId} – ${amountHuf} Ft`);
   }
 }
 
