@@ -7,9 +7,16 @@ Beállítás: `MUSIC_API_URL` és `MUSIC_API_KEY`. Hitelesítés: `Authorization
 ## Tanítás
 
 ### `POST /v1/train`
+Kétféle tanítás van: **stílusmodell** (`type: "style"` – zenei alapok, ritmus, hangszerelés) és
+**hangmodell** (`type: "voice"` – egy leszerződött előadó hangja tiszta énekfelvételekből; az
+`artist_id` és `voice_name` ilyenkor kitöltött). A kész hangmodell azonosítója aktiváláskor az előadó
+`voice_model_id`-ja lesz, és minden rá leadott rendelés `voice_model_id`-jaként érkezik a generáláshoz.
 ```json
 {
   "ref_id": "trn_…",
+  "type": "style" | "voice",
+  "artist_id": "art_…" | null,
+  "voice_name": "Előadó neve" | null,
   "name": "Lakodalmas v1",
   "style_ids": ["lakodalmas-mulatos", "porgos-csardas"],
   "samples": [

@@ -13,7 +13,8 @@ export default async function TrainingPage() {
         title="Zenék és tanítás"
         sub={process.env.MUSIC_API_URL ? `Zene-API: ${new URL(process.env.MUSIC_API_URL).host}` : "Zene-API nincs csatlakoztatva – a tanítás szimulált (MUSIC_API_URL beállítása után valódi)."}
       />
-      <TrainingManager samples={samples} jobs={jobs} styles={styles} />
+      <TrainingManager samples={samples.filter((s) => (s.purpose ?? "style") === "style")} jobs={jobs.filter((j) => (j.type ?? "style") === "style")} styles={styles} />
+      <p className="mt-4 text-sm text-muted">Előadói hangok tanítása: <a href="/admin/katalogus/artists" className="font-semibold text-gold">Előadók és felárak</a> → az előadó „Hang és élesítés” oldala.</p>
     </>
   );
 }

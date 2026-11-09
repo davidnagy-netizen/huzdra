@@ -31,7 +31,21 @@ function putWithProgress(url: string, file: File, headers: Record<string, string
   });
 }
 
-export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSample[]; jobs: TrainingJob[]; styles: Style[] }) {
+export function TrainingManager({
+  samples,
+  jobs,
+  styles,
+  mode = "style",
+  artist,
+}: {
+  samples: TrainingSample[];
+  jobs: TrainingJob[];
+  styles: Style[];
+  /** "voice": egy előadó hangjának tanítása (ének-felvételek) */
+  mode?: "style" | "voice";
+  artist?: { id: string; name: string };
+}) {
+  const voice = mode === "voice";
   const router = useRouter();
   const [pending, setPending] = useState<Pending[]>([]);
   const [meta, setMeta] = useState({ styleIds: [] as string[], instruments: [] as string[], mood: "", notes: "", rights: false, rightsNote: "" });
@@ -85,6 +99,7 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
             storagePath: tj.storagePath, fileName: it.file.name, mimeType: mime, sizeBytes: it.file.size, title: it.title,
             durationSec: it.durationSec, bpm: it.bpm, musicalKey: it.musicalKey, styleIds: meta.styleIds, instruments: meta.instruments,
             mood: meta.mood, notes: meta.notes, rightsConfirmed: true, rightsNote: meta.rightsNote,
+            purpose: mode, artistId: artist?.id ?? null,
           }),
         });
         const rj = await r.json();
@@ -109,8 +124,12 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
   return (
     <div className="space-y-4">
       <section className="rounded-2xl border border-line bg-surface p-5">
-        <h2 className="mb-1 text-sm font-bold uppercase tracking-wider text-muted">Zeneminták feltöltése</h2>
-        <p className="mb-4 text-sm text-muted">Ezekből tanul a zenegeneráló modell (ritmus, hangnem, hangszerelés, hangulat). A fájl közvetlenül a tárhelyre megy; a tempót és a hangnemet a böngésző méri meg – javíthatod.</p>
+        <h2 className="mb-1 text-sm font-bold uppercase tracking-wider text-muted">{voice ? `${artist?.name} hangfelvételeinek feltöltése` : "Zeneminták feltöltése"}</h2>
+        <p className="mb-4 text-sm text-muted">
+          {voice
+            ? "Tiszta énekfelvételek (lehetőleg zene nélkül, a cappella vagy külön ének-sáv), különböző hangulatokban és magasságokban. Minél több és változatosabb, annál élethűbb lesz a hangmodell (ajánlott: 20–60 perc)."
+            : "Ezekből tanul a zenegeneráló modell (ritmus, hangnem, hangszerelés, hangulat). A fájl közvetlenül a tárhelyre megy; a tempót és a hangnemet a böngésző méri meg – javíthatod."}
+        </p>
         <label
           className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-line p-8 text-center hover:border-gold"
           onDragOver={(e) => e.preventDefault()}
@@ -136,7 +155,7 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
                 </li>
               ))}
             </ul>
-            <div className="grid gap-3 lg:grid-cols-2">
+            <div className={`grid gap-3 lg:grid-cols-2 ${voice ? "hidden" : ""}`}>
               <div><p className="mb-1 text-xs font-bold text-muted">Stílus (mind a feltöltött fájlra)</p><div className="flex flex-wrap gap-1.5">{styles.map((s) => chip(meta.styleIds.includes(s.id), s.label, () => setMeta({ ...meta, styleIds: toggle(meta.styleIds, s.id) })))}</div></div>
               <div><p className="mb-1 text-xs font-bold text-muted">Hangszerek</p><div className="flex flex-wrap gap-1.5">{INSTRUMENTS.map((x) => chip(meta.instruments.includes(x), x, () => setMeta({ ...meta, instruments: toggle(meta.instruments, x) })))}</div></div>
               <div><p className="mb-1 text-xs font-bold text-muted">Hangulat</p><div className="flex flex-wrap gap-1.5">{MOODS.map((x) => chip(meta.mood === x, x, () => setMeta({ ...meta, mood: meta.mood === x ? "" : x })))}</div></div>
@@ -144,7 +163,11 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
             </div>
             <label className="flex items-start gap-2 rounded-xl border border-gold/40 bg-gold/5 p-3 text-sm">
               <input type="checkbox" className="mt-0.5 h-4 w-4 accent-[var(--gold)]" checked={meta.rights} onChange={(e) => setMeta({ ...meta, rights: e.target.checked })} />
-              <span>Megerősítem, hogy ezek a felvételek <b>saját felvételeink vagy licenceltek</b>, és felhasználhatók a zenegeneráló modell tanítására.</span>
+              {voice ? (
+                <span>Megerősítem, hogy <b>{artist?.name} írásban hozzájárult</b> (licencszerződés), hogy ezekből a felvételekből a Húzdrá! számára hangmodell készüljön, és a felvételek tőle / jogtulajdonostól származnak.</span>
+              ) : (
+                <span>Megerősítem, hogy ezek a felvételek <b>saját felvételeink vagy licenceltek</b>, és felhasználhatók a zenegeneráló modell tanítására.</span>
+              )}
             </label>
             {meta.rights && <input className="field !py-2 text-sm" placeholder="Forrás / licenc (pl. saját stúdiófelvétel, 2026.10.)" value={meta.rightsNote} onChange={(e) => setMeta({ ...meta, rightsNote: e.target.value })} aria-label="Licenc megjegyzés" />}
             <div className="flex flex-wrap items-center gap-3">
@@ -158,7 +181,7 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
 
       <section className="rounded-2xl border border-line bg-surface p-5">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-muted">Zenetár ({samples.length})</h2>
+          <h2 className="text-sm font-bold uppercase tracking-wider text-muted">{voice ? "Hangfelvételek" : "Zenetár"} ({samples.length})</h2>
           <span className="text-xs text-muted">{selected.length} kiválasztva</span>
         </div>
         {samples.length === 0 ? (
@@ -195,15 +218,15 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
         )}
 
         <div className="mt-4 rounded-xl border border-line p-4">
-          <h3 className="font-bold">Tanítás indítása a kiválasztott mintákból</h3>
+          <h3 className="font-bold">{voice ? `${artist?.name} hangmodelljének tanítása a kiválasztott felvételekből` : "Tanítás indítása a kiválasztott mintákból"}</h3>
           <div className="mt-2 grid gap-2 lg:grid-cols-[1fr_auto]">
-            <input className="field !py-2 text-sm" placeholder="Modell neve (pl. Lakodalmas v1)" value={jobName} onChange={(e) => setJobName(e.target.value)} aria-label="Modell neve" />
+            <input className="field !py-2 text-sm" placeholder={voice ? `pl. ${artist?.name} hang v1` : "Modell neve (pl. Lakodalmas v1)"} value={jobName} onChange={(e) => setJobName(e.target.value)} aria-label="Modell neve" />
             <button
               type="button"
               className="btn-primary !py-2 text-sm"
               disabled={!selected.length}
               onClick={async () => {
-                const r = await fetch("/api/admin/training/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: jobName, sampleIds: selected, styleIds: jobStyles }) });
+                const r = await fetch("/api/admin/training/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: jobName || (voice ? `${artist?.name} hang v${jobs.length + 1}` : ""), sampleIds: selected, styleIds: jobStyles, type: mode, artistId: artist?.id ?? null }) });
                 const j = await r.json();
                 if (!r.ok) return setMsg({ ok: false, text: j.error });
                 setSelected([]); setJobName(""); setMsg({ ok: true, text: "A tanítás elindult." }); router.refresh();
@@ -212,25 +235,29 @@ export function TrainingManager({ samples, jobs, styles }: { samples: TrainingSa
               Tanítás indítása ({selected.length} minta)
             </button>
           </div>
-          <p className="mb-1 mt-3 text-xs font-bold text-muted">Mely stílusokban generáljon ez a modell? (üres = mind)</p>
-          <div className="flex flex-wrap gap-1.5">{styles.map((s) => chip(jobStyles.includes(s.id), s.label, () => setJobStyles(toggle(jobStyles, s.id))))}</div>
+          {!voice && (
+            <>
+              <p className="mb-1 mt-3 text-xs font-bold text-muted">Mely stílusokban generáljon ez a modell? (üres = mind)</p>
+              <div className="flex flex-wrap gap-1.5">{styles.map((s) => chip(jobStyles.includes(s.id), s.label, () => setJobStyles(toggle(jobStyles, s.id))))}</div>
+            </>
+          )}
         </div>
       </section>
 
       <section className="rounded-2xl border border-line bg-surface p-5">
-        <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Modellek / tanítások</h2>
+        <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">{voice ? "Hangmodellek" : "Modellek / tanítások"}</h2>
         {jobs.length === 0 ? <p className="text-sm text-muted">Még nem volt tanítás.</p> : (
           <ul className="space-y-3">
             {jobs.map((j) => (
               <li key={j.id} className="rounded-xl border border-line p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span><b>{j.name}</b> <span className="text-xs text-muted">· {j.sampleIds.length} minta · {j.styleIds.length ? j.styleIds.map((x) => styleName[x] ?? x).join(", ") : "minden stílus"} · {j.provider}</span></span>
+                  <span><b>{j.name}</b> <span className="text-xs text-muted">· {j.sampleIds.length} {voice ? "felvétel" : "minta"}{voice ? "" : ` · ${j.styleIds.length ? j.styleIds.map((x) => styleName[x] ?? x).join(", ") : "minden stílus"}`} · {j.provider}</span></span>
                   <span className="flex items-center gap-2 text-sm">
                     {j.status === "succeeded" ? (
                       <>
                         <span className="text-xs text-muted">{j.modelId}</span>
-                        <button type="button" className={j.active ? "btn-primary !py-1.5 text-xs" : "btn-ghost !py-1.5 text-xs"} onClick={async () => { await fetch(`/api/admin/training/jobs/${j.id}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ active: !j.active }) }); router.refresh(); }}>
-                          {j.active ? "✓ Aktív – ez generál" : "Aktiválás"}
+                        <button type="button" className={j.active ? "btn-primary !py-1.5 text-xs" : "btn-ghost !py-1.5 text-xs"} onClick={async () => { const r = await fetch(`/api/admin/training/jobs/${j.id}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ active: !j.active }) }); if (!r.ok) setMsg({ ok: false, text: (await r.json()).error }); router.refresh(); }}>
+                          {j.active ? (voice ? `✓ Ez ${artist?.name} hangja` : "✓ Aktív – ez generál") : voice ? "Legyen ez a hangja" : "Aktiválás"}
                         </button>
                       </>
                     ) : j.status === "failed" ? <span className="text-xs font-semibold text-crit">Sikertelen: {j.error}</span> : <span className="text-xs text-muted">{j.status === "queued" ? "Sorban áll…" : `Tanítás… ${j.progress}%`}</span>}

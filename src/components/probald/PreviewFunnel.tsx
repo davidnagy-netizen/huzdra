@@ -119,7 +119,7 @@ export function PreviewFunnel({ catalog }: { catalog: Catalog }) {
     <div className="space-y-6">
       {!preview && (
         <div ref={formRef} className="card space-y-6 p-5 sm:p-7">
-          <fieldset>
+          <fieldset className="min-w-0">
             <legend className="mb-2 font-bold">1. Ki énekelje?</legend>
             <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 no-scrollbar" role="radiogroup">
               {catalog.artists.map((a) => {
@@ -129,7 +129,7 @@ export function PreviewFunnel({ catalog }: { catalog: Catalog }) {
                 return (
                   <div key={a.id} className={`w-36 shrink-0 overflow-hidden rounded-2xl border ${on ? "border-gold ring-2 ring-gold/40" : "border-line"}`}>
                     <button type="button" role="radio" aria-checked={on} onClick={() => set("artistId", a.id)} className="block w-full text-left">
-                      <div className="relative aspect-square"><ArtistPortrait artist={a} />{on && <span className="absolute right-1.5 top-1.5 grid h-6 w-6 place-items-center rounded-full bg-gold text-on-gold"><CheckIcon size={14} strokeWidth={3} /></span>}</div>
+                      <div className="relative aspect-square"><ArtistPortrait artist={a} monogram={false} />{on && <span className="absolute right-1.5 top-1.5 grid h-6 w-6 place-items-center rounded-full bg-gold text-on-gold"><CheckIcon size={14} strokeWidth={3} /></span>}</div>
                       <p className="px-2 pt-1.5 text-sm font-bold leading-tight">{a.name}</p>
                       <p className="px-2 text-[11px] text-muted">{formatSurcharge(a.surchargeHuf)}</p>
                     </button>

@@ -9,12 +9,26 @@ import { getAdapters } from "./registry";
 
 export class TrainingError extends Error {}
 
-/** Tanítás indítása a kiválasztott zenemintákból (csak jogtiszta, megerősített minták). */
-export async function startTraining(input: { name: string; sampleIds: string[]; styleIds: StyleId[] }, by: string): Promise<TrainingJob> {
+/**
+ * Tanítás indítása a kiválasztott mintákból (csak jogtiszta, megerősített minták).
+ * type "voice": egy előadó hangmodellje – csak az ő hangfelvételeiből, és csak rögzített licenccel/hozzájárulással.
+ */
+export async function startTraining(
+  input: { name: string; sampleIds: string[]; styleIds: StyleId[]; type?: "style" | "voice"; artistId?: string | null },
+  by: string,
+): Promise<TrainingJob> {
   const repo = getRepo();
+  const type = input.type === "voice" ? "voice" : "style";
+  const artist = type === "voice" && input.artistId ? await repo.getArtistById(input.artistId) : null;
+  if (type === "voice") {
+    if (!artist) throw new TrainingError("Hangtanításhoz válassz előadót.");
+    if (!artist.licenseSignedAt) throw new TrainingError(`Előbb rögzítsd ${artist.name} licencszerződésének / hozzájárulásának dátumát – enélkül a hangja nem tanítható.`);
+  }
   const all = await repo.listTrainingSamples();
-  const samples = all.filter((s) => input.sampleIds.includes(s.id) && s.status !== "archived");
-  if (!samples.length) throw new TrainingError("Válassz legalább egy zenemintát.");
+  const samples = all.filter(
+    (s) => input.sampleIds.includes(s.id) && s.status !== "archived" && (s.purpose ?? "style") === type && (type === "style" || s.artistId === artist!.id),
+  );
+  if (!samples.length) throw new TrainingError(type === "voice" ? "Válassz legalább egy hangfelvételt ettől az előadótól." : "Válassz legalább egy zenemintát.");
   const noRights = samples.filter((s) => !s.rightsConfirmed);
   if (noRights.length) throw new TrainingError(`Jogtisztaság nincs megerősítve: ${noRights.map((s) => s.title).join(", ")}`);
   const storage = getStorage();
@@ -36,6 +50,8 @@ export async function startTraining(input: { name: string; sampleIds: string[]; 
   const now = new Date().toISOString();
   const job: TrainingJob = {
     id: `trn_${token(8)}`,
+    type,
+    artistId: artist?.id ?? null,
     name: input.name.trim().slice(0, 80) || `Tanítás ${new Date().toLocaleDateString("hu-HU")}`,
     sampleIds: samples.map((s) => s.id),
     styleIds: input.styleIds,
@@ -51,7 +67,15 @@ export async function startTraining(input: { name: string; sampleIds: string[]; 
   };
   await repo.createTrainingJob(job);
   try {
-    const { providerJobId } = await getAdapters().training.start({ jobId: job.id, name: job.name, styleIds: job.styleIds, samples: withUrls });
+    const { providerJobId } = await getAdapters().training.start({
+      jobId: job.id,
+      type,
+      artistId: artist?.id ?? null,
+      voiceName: artist?.name ?? null,
+      name: job.name,
+      styleIds: job.styleIds,
+      samples: withUrls,
+    });
     await repo.updateTrainingJob(job.id, { providerJobId });
     for (const s of samples) await repo.updateTrainingSample(s.id, { status: "in_training" });
     await enqueue("training.poll", { jobId: job.id }, pollDelay());
@@ -86,14 +110,35 @@ export async function pollTraining(jobId: string) {
   await enqueue("training.poll", { jobId }, Math.max(pollDelay() * 2, 1000));
 }
 
-/** Modell aktiválása: ettől kezdve ez generál a megadott stílus(ok)ban. */
+/**
+ * Modell aktiválása.
+ *  - stílusmodell: ettől kezdve ez generál a megadott stílus(ok)ban
+ *  - hangmodell: az előadó hangja ez lesz (artist.voiceModelId) → aki őt választja, ezzel a hanggal kapja a dalt
+ */
 export async function activateModel(jobId: string, active: boolean) {
   const repo = getRepo();
   const jobs = await repo.listTrainingJobs();
   const job = jobs.find((j) => j.id === jobId);
-  if (!job || job.status !== "succeeded") throw new TrainingError("Csak sikeresen betanított modell aktiválható.");
+  if (!job || job.status !== "succeeded" || !job.modelId) throw new TrainingError("Csak sikeresen betanított modell aktiválható.");
+
+  if ((job.type ?? "style") === "voice") {
+    const artist = job.artistId ? await repo.getArtistById(job.artistId) : null;
+    if (!artist) throw new TrainingError("Az előadó nem található.");
+    if (!active) {
+      if (artist.availability === "available") throw new TrainingError("Elérhető előadó hangja nem kapcsolható ki – aktiválj helyette másik hangmodellt, vagy előbb állítsd „hamarosan” állapotba.");
+      await repo.adminUpsert("artists", { ...artist, voiceModelId: "" });
+      await repo.updateTrainingJob(jobId, { active: false });
+      return;
+    }
+    for (const j of jobs) if (j.id !== jobId && j.type === "voice" && j.artistId === artist.id && j.active) await repo.updateTrainingJob(j.id, { active: false });
+    await repo.adminUpsert("artists", { ...artist, voiceModelId: job.modelId });
+    await repo.updateTrainingJob(jobId, { active: true });
+    return;
+  }
+
   if (active) {
     for (const j of jobs) {
+      if ((j.type ?? "style") !== "style") continue;
       if (j.id !== jobId && j.active && (j.styleIds.length === 0 || job.styleIds.length === 0 || j.styleIds.some((s) => job.styleIds.includes(s)))) {
         await repo.updateTrainingJob(j.id, { active: false });
       }

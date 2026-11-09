@@ -249,7 +249,7 @@ async function stepAudio(order: Order, artistName: string, voiceModelId: string)
   if (!order.audioJob) {
     try {
       const jobs = await repo.listTrainingJobs();
-      const styleModel = jobs.find((j) => j.active && j.status === "succeeded" && (!order.data.styleId || j.styleIds.includes(order.data.styleId as never)));
+      const styleModel = jobs.find((j) => (j.type ?? "style") === "style" && j.active && j.status === "succeeded" && (!order.data.styleId || j.styleIds.includes(order.data.styleId as never)));
       const { jobId } = await adapters.audio.submit({
         kind: "song",
         refId: order.id,
@@ -266,7 +266,7 @@ async function stepAudio(order: Order, artistName: string, voiceModelId: string)
         title: order.lyrics?.title ?? `${order.data.recipientName} dala`,
         artistName,
       });
-      await save(note({ ...order, audioJob: { jobId, submittedAt: new Date().toISOString(), attempts: 0 } }, `Felvétel beküldve (${adapters.audio.name}${styleModel ? `, stílusmodell: ${styleModel.modelId}` : ""})`));
+      await save(note({ ...order, audioJob: { jobId, submittedAt: new Date().toISOString(), attempts: 0 } }, `Felvétel beküldve (${adapters.audio.name}, hangmodell: ${voiceModelId}${styleModel ? `, stílusmodell: ${styleModel.modelId}` : ""})`));
       return advanceLater(order.id, pollDelay());
     } catch (err) {
       return fail(order, "Felvétel beküldése", err);

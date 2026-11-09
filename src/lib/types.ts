@@ -379,6 +379,10 @@ export interface SupportTicket {
 
 export interface TrainingSample {
   id: string;
+  /** "style": zenei stílus tanítása · "voice": egy előadó hangjának tanítása (ének-felvételek) */
+  purpose?: "style" | "voice";
+  /** Hangtanításnál: melyik előadó hangja */
+  artistId?: string | null;
   title: string;
   storagePath: string;
   fileName: string;
@@ -402,6 +406,9 @@ export interface TrainingSample {
 
 export interface TrainingJob {
   id: string;
+  /** "style": stílusmodell · "voice": előadói hangmodell (aktiváláskor az előadó voiceModelId-ja lesz) */
+  type?: "style" | "voice";
+  artistId?: string | null;
   name: string;
   sampleIds: string[];
   styleIds: StyleId[];

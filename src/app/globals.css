@@ -221,6 +221,10 @@ body {
 
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
+/* A fieldset alapból a tartalmához nyúlik (min-width: min-content) – emiatt a benne lévő
+   vízszintes görgetősávok kilógnának. */
+fieldset { min-width: 0; }
+
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 

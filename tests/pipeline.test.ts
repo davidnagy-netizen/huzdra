@@ -111,7 +111,16 @@ test("előnézet: rövid dalszöveg (versszak + refrén, 2. versszak nélkül)",
 test("mock tanítás: halad, majd modell-azonosítót ad", async () => {
   process.env.MOCK_TRAINING_SECONDS = "0";
   const t = new MockTrainingAdapter();
-  const { providerJobId } = await t.start({ jobId: "j", name: "n", styleIds: [], samples: [{ id: "s", url: "u", title: "t", bpm: 120, musicalKey: "A-dúr", styleIds: [], instruments: [], mood: "" }] });
+  const { providerJobId } = await t.start({ jobId: "j", type: "style", artistId: null, voiceName: null, name: "n", styleIds: [], samples: [{ id: "s", url: "u", title: "t", bpm: 120, musicalKey: "A-dúr", styleIds: [], instruments: [], mood: "" }] });
   const st = await t.status(providerJobId);
   assert.equal(st.status, "succeeded");
+});
+
+test("mock hangtanítás: hangmodell-azonosítót ad", async () => {
+  process.env.MOCK_TRAINING_SECONDS = "0";
+  const t = new MockTrainingAdapter();
+  const { providerJobId } = await t.start({ jobId: "j", type: "voice", artistId: "art_celeb_1", voiceName: "Teszt Előadó", name: "hang v1", styleIds: [], samples: [{ id: "s", url: "u", title: "ének", bpm: null, musicalKey: null, styleIds: [], instruments: ["ének"], mood: "" }] });
+  const st = await t.status(providerJobId);
+  assert.equal(st.status, "succeeded");
+  assert.match(st.status === "succeeded" ? st.modelId : "", /^voicemodel_/);
 });

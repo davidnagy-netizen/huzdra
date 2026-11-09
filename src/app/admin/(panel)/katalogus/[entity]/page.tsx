@@ -20,7 +20,7 @@ export default async function CatalogPage(props: PageProps<"/admin/katalogus/[en
   return (
     <>
       <PageTitle title={def.title} />
-      <CrudManager def={def} rows={sorted} options={options} />
+      <CrudManager def={def} rows={sorted} options={options} rowLink={def.entity === "artists" ? { base: "/admin/eloadok/", label: "Hang és élesítés →" } : undefined} />
     </>
   );
 }

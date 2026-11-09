@@ -198,7 +198,7 @@ export function coerceRow(def: EntityDef, input: Record<string, unknown>, isNew:
       }
       case "bool": row[f.name] = v === true || v === "true" || v === "on"; break;
       case "multiselect": row[f.name] = Array.isArray(v) ? v.map(String) : []; break;
-      case "lines": row[f.name] = String(v ?? "").split("\n").map((x) => x.trim()).filter(Boolean); break;
+      case "lines": row[f.name] = (Array.isArray(v) ? v.map(String) : String(v ?? "").split("\n")).map((x) => x.trim()).filter(Boolean); break;
       case "date": row[f.name] = v ? String(v).slice(0, 10) : null; break;
       default: row[f.name] = String(v ?? "").trim();
     }

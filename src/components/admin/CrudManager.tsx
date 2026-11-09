@@ -18,7 +18,7 @@ function display(f: FieldDef | undefined, v: unknown, options: Options) {
   return String(v);
 }
 
-export function CrudManager({ def, rows, options }: { def: EntityDef; rows: Row[]; options: Options }) {
+export function CrudManager({ def, rows, options, rowLink }: { def: EntityDef; rows: Row[]; options: Options; rowLink?: { base: string; label: string } }) {
   const router = useRouter();
   const [editing, setEditing] = useState<{ key: string | null; row: Row } | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -150,6 +150,7 @@ export function CrudManager({ def, rows, options }: { def: EntityDef; rows: Row[
                 <tr key={key} className="border-t border-line hover:bg-surface-2">
                   {def.columns.map((c) => <td key={c} className="px-4 py-2.5">{display(fieldOf(c), r[c], options)}</td>)}
                   <td className="whitespace-nowrap px-4 py-2.5 text-right">
+                    {rowLink && <><a href={`${rowLink.base}${encodeURIComponent(key)}`} className="text-sm font-bold text-gold">{rowLink.label}</a>{" · "}</>}
                     <button type="button" className="text-sm font-semibold text-gold" onClick={() => { setEditing({ key, row: { ...blank(), ...r } }); setErrors({}); setMsg(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Szerkesztés</button>
                     {" · "}
                     <button type="button" className="text-sm text-crit" onClick={async () => { if (!confirm("Biztosan törlöd?")) return; const res = await fetch(`/api/admin/crud/${def.entity}?key=${encodeURIComponent(key)}`, { method: "DELETE" }); const j = await res.json().catch(() => ({})); if (!res.ok) setMsg(j.error ?? "Hiba"); router.refresh(); }}>Törlés</button>

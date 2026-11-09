@@ -167,6 +167,8 @@ create index tickets_email_idx on support_tickets(from_email);
 -- ------------------------------------------------------------------ tanítás
 create table training_samples (
   id               text primary key,
+  purpose          text not null default 'style' check (purpose in ('style','voice')),
+  artist_id        text references artists(id) on delete set null,   -- hangtanításnál
   title            text not null,
   storage_path     text not null,               -- training tároló
   file_name        text not null default '',
@@ -189,6 +191,8 @@ create table training_samples (
 
 create table training_jobs (
   id              text primary key,
+  type            text not null default 'style' check (type in ('style','voice')),
+  artist_id       text references artists(id) on delete set null,
   name            text not null,
   sample_ids      text[] not null default '{}',
   style_ids       text[] not null default '{}',

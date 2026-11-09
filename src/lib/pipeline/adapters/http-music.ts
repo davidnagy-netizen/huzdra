@@ -59,6 +59,9 @@ export class HttpTrainingAdapter implements TrainingAdapter {
   async start(req: TrainingRequest) {
     const r = await call<{ id: string }>("POST", "/v1/train", {
       ref_id: req.jobId,
+      type: req.type,
+      artist_id: req.artistId,
+      voice_name: req.voiceName,
       name: req.name,
       style_ids: req.styleIds,
       samples: req.samples.map((s) => ({

@@ -67,6 +67,11 @@ export interface AudioAdapter {
 /** Stílusmodell tanítása a feltöltött zenemintákból. */
 export interface TrainingRequest {
   jobId: string;
+  /** "style": zenei stílusmodell · "voice": előadói hangmodell */
+  type: "style" | "voice";
+  artistId: string | null;
+  /** Hangtanításnál az előadó neve (a szolgáltatónál a modell címkéje) */
+  voiceName: string | null;
   name: string;
   styleIds: StyleId[];
   samples: {

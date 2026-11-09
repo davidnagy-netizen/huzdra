@@ -12,9 +12,14 @@ export async function POST(req: Request) {
   if (b.rightsConfirmed !== true) return Response.json({ error: "Erősítsd meg, hogy a felvétel saját vagy licencelt, és tanításra felhasználható." }, { status: 400 });
   const storagePath = String(b.storagePath ?? "");
   if (!storagePath || !(await getStorage().exists("training", storagePath))) return Response.json({ error: "A fájl nem található a tárhelyen – töltsd fel újra." }, { status: 400 });
+  const purpose = b.purpose === "voice" ? "voice" : "style";
+  const artistId = purpose === "voice" ? String(b.artistId ?? "") : null;
+  if (purpose === "voice" && !(await getRepo().getArtistById(artistId!))) return Response.json({ error: "Ismeretlen előadó." }, { status: 400 });
   const num = (v: unknown) => (v === "" || v == null || !Number.isFinite(Number(v)) ? null : Number(v));
   const sample: TrainingSample = {
     id: `ts_${crypto.randomBytes(6).toString("hex")}`,
+    purpose,
+    artistId,
     title: String(b.title ?? "").trim().slice(0, 120) || String(b.fileName ?? "Zeneminta"),
     storagePath,
     fileName: String(b.fileName ?? "").slice(0, 200),

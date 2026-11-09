@@ -157,13 +157,14 @@ export class MockTrainingAdapter implements TrainingAdapter {
   readonly name = "mock-training";
   async start(req: TrainingRequest) {
     if (!req.samples.length) throw new Error("Nincs kiválasztott zeneminta");
-    return { providerJobId: `mocktrain_${Date.now()}_${req.samples.length}` };
+    return { providerJobId: `mocktrain_${Date.now()}_${req.samples.length}_${req.type}` };
   }
   async status(providerJobId: string): Promise<TrainingStatus> {
     const started = Number(providerJobId.split("_")[1] ?? Date.now());
     const secs = (Date.now() - started) / 1000;
     const total = Number(process.env.MOCK_TRAINING_SECONDS ?? 20);
-    if (secs >= total) return { status: "succeeded", progress: 100, modelId: `stylemodel_${providerJobId.slice(-10)}` };
+    const voice = providerJobId.endsWith("_voice");
+    if (secs >= total) return { status: "succeeded", progress: 100, modelId: `${voice ? "voicemodel" : "stylemodel"}_${providerJobId.split("_")[1]?.slice(-8)}` };
     return { status: secs < 2 ? "queued" : "running", progress: Math.min(99, Math.round((secs / total) * 100)) };
   }
 }

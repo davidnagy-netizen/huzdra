@@ -113,7 +113,7 @@ export async function advancePreview(previewId: string): Promise<void> {
     }
     if (!p.audioJob) {
       const jobs = await repo.listTrainingJobs();
-      const styleModel = jobs.find((j) => j.active && j.status === "succeeded");
+      const styleModel = jobs.find((j) => (j.type ?? "style") === "style" && j.active && j.status === "succeeded");
       const { jobId } = await adapters.audio.submit({
         kind: "preview",
         refId: p.id,
